@@ -4,7 +4,7 @@
 
 Project 2 will really test your new skills, bringing weeks of knowledge together to create an app that integrates many different technologies and principles. This app will allow a user to search and buy products from your digital store!
 
-**You will be working individually for this project**. The project will be spread across **two weeks**, with separate deliverables due at the end of each week. Although the deliverables will be separate, we will be incorporating them all into a single app, expanding upon the previous week's work.
+**You will be working individually for this project**. The project will be spread across **two weeks**, with all deliverables being due at the end of week 6. **Prototypes must be approved by instructors.**
 
 Be creative! You can do whatever you want, as long as it meets the project requirements and the [student code of conduct](../code-of-conduct.md).
 
@@ -53,7 +53,6 @@ Additional requirements:
 **Bonus:**
 - Incorporate Material Design principles into your app
 - Create a review system for user feedback for each product
-- Add more complexity to the user's searches (possibly allowing more than one search criteria at a time)
 - Incorporate images from the internet using [Picasso](http://square.github.io/picasso/) or [Glide](https://github.com/bumptech/glide)
 - Implement **Master/Detail Flow** with side-by-side list and detail panes on large (i.e. landscape tablet) screens
 - Allow user to filter (i.e. by product category) in addition to search
@@ -71,7 +70,7 @@ Additional requirements:
 
 **Week 5:**
 - Define your features and write conditions and user stories
-- Create paper prototypes - get input from other people on your prototypes!
+- Create paper prototypes - get input from other people on your prototypes! **(Must be approved by instructors)**
 - Write your non-Android classes to model the products for your app and unit tests as needed
 - Plan out your database - exactly what table(s) and columns you'll need
 - Write your `SQLiteOpenHelper` class to create your table(s) and add your data
