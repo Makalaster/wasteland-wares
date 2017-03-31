@@ -4,7 +4,7 @@
 
 Project 2 will really test your new skills, bringing weeks of knowledge together to create an app that integrates many different technologies and principles. This app will allow a user to search and buy products from your digital store!
 
-**You will be working individually for this project**. The project will be spread across **two weeks**, with all deliverables being due at the end of week 6. **Prototypes must be approved by instructors.**
+**You will be working individually for this project**. The project will be spread across **two weeks**, with all deliverables being due at the end of week 6. **Prototypes must be approved by instructors by Thursday, April 6th.**
 
 Be creative! You can do whatever you want, as long as it meets the project requirements and the [student code of conduct](../code-of-conduct.md).
 
