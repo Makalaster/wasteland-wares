@@ -2,6 +2,7 @@ package ly.generalassemb.project2.shoppingcart.presenter;
 
 import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,8 @@ import ly.generalassemb.project2.shoppingcart.database.ShoppingCartDataStore;
 public class ShoppingCartRecyclerViewAdapter
         extends RecyclerView.Adapter<DataBinder<ProductModel>>
         implements ShoppingCartDataStore.ShoppingCartListener{
+
+    private static final String TAG = "ShoppingCartRecyclerVie";
 
     Cursor mCursor;
     List<ProductModel> mProductList = new ArrayList<>();
@@ -103,6 +106,9 @@ public class ShoppingCartRecyclerViewAdapter
                 if(!shoppingCartProductId.contains(tempList.get(i).getProductId())){
                     mProductList.remove(i);
                     notifyItemRemoved(i);
+                    Log.d(TAG, "onShoppingCartChanged: item changed");
+                }else {
+                    notifyItemChanged(i);
                 }
             }
         }
