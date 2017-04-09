@@ -1,4 +1,4 @@
-package com.makalaster.wastelandwares.Data;
+package com.makalaster.wastelandwares.data;
 
 /**
  * Created by Makalaster on 4/9/17.
