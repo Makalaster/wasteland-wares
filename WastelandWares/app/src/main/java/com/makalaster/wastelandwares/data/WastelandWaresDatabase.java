@@ -4,26 +4,24 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.makalaster.wastelandwares.MainActivity;
-
 /**
  * Created by Makalaster on 4/9/17.
  */
 
-public class Inventory extends SQLiteOpenHelper {
+public class WastelandWaresDatabase extends SQLiteOpenHelper {
     private static final int VERSION = 1;
     private static final String DB_NAME = "wastelandwares.db";
 
-    private static Inventory sInventory;
+    private static WastelandWaresDatabase sInstance;
 
-    static Inventory getInstance(Context context) {
-        if (sInventory == null) {
-            sInventory = new Inventory(context.getApplicationContext());
+    static WastelandWaresDatabase getInstance(Context context) {
+        if (sInstance == null) {
+            sInstance = new WastelandWaresDatabase(context.getApplicationContext());
         }
-        return sInventory;
+        return sInstance;
     }
 
-    private Inventory(Context context) {
+    private WastelandWaresDatabase(Context context) {
         super(context, DB_NAME, null, VERSION);
     }
 
