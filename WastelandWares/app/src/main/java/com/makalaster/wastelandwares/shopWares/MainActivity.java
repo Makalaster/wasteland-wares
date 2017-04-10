@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         ViewPager pager = (ViewPager) findViewById(R.id.pager);
-        pager.setAdapter(new FilterPagerAdapter(getSupportFragmentManager()));
+        //pager.setAdapter(new FilterPagerAdapter(getSupportFragmentManager()));
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
