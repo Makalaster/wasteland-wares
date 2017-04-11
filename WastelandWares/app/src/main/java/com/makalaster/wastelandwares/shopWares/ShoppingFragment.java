@@ -3,32 +3,42 @@ package com.makalaster.wastelandwares.shopWares;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.makalaster.wastelandwares.R;
+import com.makalaster.wastelandwares.data.Aid;
+import com.makalaster.wastelandwares.data.Armor;
+import com.makalaster.wastelandwares.data.Item;
+import com.makalaster.wastelandwares.data.WastelandWaresDatabase;
+import com.makalaster.wastelandwares.data.Weapon;
+import com.makalaster.wastelandwares.shopWares.Recycler.WaresRecyclerAdapter;
+
+import java.util.List;
+
+import static android.content.ContentValues.TAG;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link ShoppingFragment.OnFragmentInteractionListener} interface
+ * {@link OnItemSelectedListener} interface
  * to handle interaction events.
  * Use the {@link ShoppingFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
 public class ShoppingFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    public static final String SELECTED_TAB = "selectedTab";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private int mSelectedTab;
 
-    private OnFragmentInteractionListener mListener;
+    private OnItemSelectedListener mListener;
 
     public ShoppingFragment() {
         // Required empty public constructor
@@ -38,16 +48,14 @@ public class ShoppingFragment extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
+     * @param selectedTab Parameter 1.
      * @return A new instance of fragment ShoppingFragment.
      */
-    // TODO: Rename and change types and number of parameters
-    public static ShoppingFragment newInstance(String param1, String param2) {
+    public static ShoppingFragment newInstance(int selectedTab) {
         ShoppingFragment fragment = new ShoppingFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+
+        args.putInt(SELECTED_TAB, selectedTab);
         fragment.setArguments(args);
         return fragment;
     }
@@ -56,9 +64,10 @@ public class ShoppingFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            mSelectedTab = getArguments().getInt(SELECTED_TAB);
         }
+
+        Log.d(TAG, "onCreate: ");
     }
 
     @Override
@@ -68,21 +77,56 @@ public class ShoppingFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_shopping, container, false);
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        WastelandWaresDatabase wastelandWaresDatabase = WastelandWaresDatabase.getInstance(view.getContext());
+        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recycler);
+        recyclerView.setLayoutManager(new GridLayoutManager(view.getContext(), 2));
+        WaresRecyclerAdapter adapter;
+
+        switch (mSelectedTab) {
+            case 0:
+                List<Item> list = wastelandWaresDatabase.getEverythingForSale();
+                adapter = new WaresRecyclerAdapter(list);
+                Log.d(TAG, "onViewCreated: tab 0");
+                break;
+            case 1:
+                List<Item> armorList = wastelandWaresDatabase.getAllArmor();
+                adapter = new WaresRecyclerAdapter(armorList);
+                Log.d(TAG, "onViewCreated: tab 1");
+                break;
+            case 2:
+                List<Item> weaponList = wastelandWaresDatabase.getAllWeapons();
+                adapter = new WaresRecyclerAdapter(weaponList);
+                Log.d(TAG, "onViewCreated: tab 2");
+                break;
+            case 3:
+                List<Item> aidList = wastelandWaresDatabase.getAllAid();
+                adapter = new WaresRecyclerAdapter(aidList);
+                Log.d(TAG, "onViewCreated: tab 3");
+                break;
+            case 4:
+                List<Item> miscList = wastelandWaresDatabase.getAllMisc();
+                adapter = new WaresRecyclerAdapter(miscList);
+                Log.d(TAG, "onViewCreated: tab 4");
+                break;
+            default:
+                adapter = new WaresRecyclerAdapter(null);
         }
+
+        recyclerView.setAdapter(adapter);
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
+        if (context instanceof OnItemSelectedListener) {
+            mListener = (OnItemSelectedListener) context;
         } else {
             throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
+                    + " must implement OnItemSelectedListener");
         }
     }
 
@@ -102,8 +146,7 @@ public class ShoppingFragment extends Fragment {
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+    public interface OnItemSelectedListener {
+        void onItemSelected(View view);
     }
 }

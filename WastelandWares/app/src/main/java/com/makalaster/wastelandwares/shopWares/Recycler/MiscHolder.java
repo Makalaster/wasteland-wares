@@ -13,12 +13,13 @@ import com.makalaster.wastelandwares.R;
 
 public class MiscHolder extends RecyclerView.ViewHolder {
     public ImageView mThumbnail;
-    public TextView mValue;
+    public TextView mValue, mItemName;
 
     public MiscHolder(View itemView) {
         super(itemView);
 
         mThumbnail = (ImageView) itemView.findViewById(R.id.thumbnail);
         mValue = (TextView) itemView.findViewById(R.id.value_textview);
+        mItemName = (TextView) itemView.findViewById(R.id.item_name);
     }
 }

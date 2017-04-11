@@ -119,7 +119,7 @@ public class WastelandWaresDatabase extends SQLiteOpenHelper {
 
     private static WastelandWaresDatabase sInstance;
 
-    static WastelandWaresDatabase getInstance(Context context) {
+    public static WastelandWaresDatabase getInstance(Context context) {
         if (sInstance == null) {
             sInstance = new WastelandWaresDatabase(context.getApplicationContext());
         }
@@ -148,8 +148,8 @@ public class WastelandWaresDatabase extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public List<Aid> getAllAid() {
-        List<Aid> allAid = new ArrayList<>();
+    public List<Item> getAllAid() {
+        List<Item> allAid = new ArrayList<>();
 
         SQLiteDatabase db = getReadableDatabase();
         Cursor aidCursor = db.query(AidTable.TABLE_NAME, null, null, null, null, null, null);
@@ -173,8 +173,8 @@ public class WastelandWaresDatabase extends SQLiteOpenHelper {
         return allAid;
     }
 
-    public List<Armor> getAllArmor() {
-        List<Armor> allArmor = new ArrayList<>();
+    public List<Item> getAllArmor() {
+        List<Item> allArmor = new ArrayList<>();
 
         SQLiteDatabase db = getReadableDatabase();
         Cursor armorCursor = db.query(ArmorTable.TABLE_NAME, null, null, null, null, null, null);
@@ -197,8 +197,8 @@ public class WastelandWaresDatabase extends SQLiteOpenHelper {
         return allArmor;
     }
 
-    public List<Weapon> getAllWeapons() {
-        List<Weapon> allWeapons = new ArrayList<>();
+    public List<Item> getAllWeapons() {
+        List<Item> allWeapons = new ArrayList<>();
 
         SQLiteDatabase db = getReadableDatabase();
         Cursor weaponCursor = db.query(WeaponTable.TABLE_NAME, null, null, null, null, null, null);
@@ -253,7 +253,7 @@ public class WastelandWaresDatabase extends SQLiteOpenHelper {
         everythingForSale.addAll(getAllAid());
         everythingForSale.addAll(getAllArmor());
         everythingForSale.addAll(getAllWeapons());
-        getEverythingForSale().addAll(getAllMisc());
+        everythingForSale.addAll(getAllMisc());
 
         return everythingForSale;
     }

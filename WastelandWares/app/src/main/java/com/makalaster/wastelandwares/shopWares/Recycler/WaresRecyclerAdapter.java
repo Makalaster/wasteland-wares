@@ -11,6 +11,7 @@ import com.makalaster.wastelandwares.data.Armor;
 import com.makalaster.wastelandwares.data.Item;
 import com.makalaster.wastelandwares.data.Weapon;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,7 +19,7 @@ import java.util.List;
  */
 
 public class WaresRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    List<Item> mItemList;
+    private List<Item> mItemList;
     private final static int ITEM = 0, AID = 1, WEAPON = 2, ARMOR = 3;
 
     public WaresRecyclerAdapter(List<Item> itemList) {
@@ -35,42 +36,46 @@ public class WaresRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
                 return new MiscHolder(view);
             default:
                 view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_weap_arm_aid, parent, false);
-                return new MiscHolder(view);
+                return new DetailHolder(view);
         }
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         switch (holder.getItemViewType()) {
-            case 0:
-                Item currentItem = mItemList.get(position);
-                MiscHolder miscHolder = (MiscHolder) holder;
-
-                miscHolder.mValue.setText(String.valueOf(currentItem.getPrice()));
-                break;
-            case 1:
-                Aid curentAid = (Aid) mItemList.get(position);
+            case AID:
+                Aid currentAid = (Aid) mItemList.get(position);
                 DetailHolder aidHolder = (DetailHolder) holder;
 
-                aidHolder.mValue.setText(String.valueOf(curentAid.getPrice()));
+                aidHolder.mItemName.setText(currentAid.getName());
+                aidHolder.mValue.setText(String.valueOf(currentAid.getPrice()));
                 aidHolder.mAttribute.setText(R.string.hp_label);
-                aidHolder.mAttributeValue.setText(String.valueOf(curentAid.getHp()));
+                aidHolder.mAttributeValue.setText(String.valueOf(currentAid.getHp()));
                 break;
-            case 2:
+            case WEAPON:
                 Weapon currentWeapon = (Weapon) mItemList.get(position);
                 DetailHolder weaponHolder = (DetailHolder) holder;
 
+                weaponHolder.mItemName.setText(currentWeapon.getName());
                 weaponHolder.mValue.setText(String.valueOf(currentWeapon.getPrice()));
                 weaponHolder.mAttribute.setText(R.string.damage_label);
                 weaponHolder.mAttributeValue.setText(String.valueOf(currentWeapon.getDamage()));
                 break;
-            case 3:
+            case ARMOR:
                 Armor currentArmor = (Armor) mItemList.get(position);
                 DetailHolder armorHolder = (DetailHolder) holder;
 
+                armorHolder.mItemName.setText(currentArmor.getName());
                 armorHolder.mValue.setText(String.valueOf(currentArmor.getPrice()));
                 armorHolder.mAttribute.setText(R.string.defense_label);
-                armorHolder.mAttributeValue.setText(currentArmor.getDefense());
+                armorHolder.mAttributeValue.setText(String.valueOf(currentArmor.getDefense()));
+                break;
+            case ITEM:
+                Item currentItem = mItemList.get(position);
+                MiscHolder miscHolder = (MiscHolder) holder;
+
+                miscHolder.mItemName.setText(currentItem.getName());
+                miscHolder.mValue.setText(String.valueOf(currentItem.getPrice()));
                 break;
         }
     }
