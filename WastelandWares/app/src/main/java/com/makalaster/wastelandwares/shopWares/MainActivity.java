@@ -75,8 +75,11 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void onItemSelected(long itemId) {
+    public void onItemSelected(long itemId, String type) {
         Intent intent = new Intent(MainActivity.this, DetailActivity.class);
+        intent.putExtra(DetailActivity.ITEM_ID_KEY, itemId);
+        intent.putExtra(DetailActivity.ITEM_TYPE, type);
+
         startActivity(intent);
     }
 }

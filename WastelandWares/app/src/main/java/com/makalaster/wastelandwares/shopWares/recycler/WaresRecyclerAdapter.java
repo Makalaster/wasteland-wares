@@ -96,14 +96,15 @@ public class WaresRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     @Override
     public int getItemViewType(int position) {
-        if (mItemList.get(position) instanceof Armor) {
-            return ARMOR;
-        } else if (mItemList.get(position) instanceof Weapon) {
-            return WEAPON;
-        } else if (mItemList.get(position) instanceof Aid) {
-            return AID;
-        } else {
-            return ITEM;
+        switch (mItemList.get(position).getClass().getSimpleName()) {
+            case "Armor":
+                return ARMOR;
+            case "Weapon":
+                return WEAPON;
+            case "Aid":
+                return AID;
+            default:
+                return ITEM;
         }
     }
 
@@ -111,7 +112,7 @@ public class WaresRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
         detailHolder.mTarget.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mListener.onItemSelected(item.getId());
+                mListener.onItemSelected(item.getId(), item.getClass().getSimpleName());
             }
         });
     }
@@ -120,12 +121,12 @@ public class WaresRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
         miscHolder.mTarget.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mListener.onItemSelected(item.getId());
+                mListener.onItemSelected(item.getId(), item.getClass().getSimpleName());
             }
         });
     }
 
     public interface OnItemSelectedListener {
-        void onItemSelected(long itemId);
+        void onItemSelected(long itemId, String type);
     }
 }

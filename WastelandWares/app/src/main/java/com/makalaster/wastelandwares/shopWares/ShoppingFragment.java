@@ -135,7 +135,7 @@ public class ShoppingFragment extends Fragment implements WaresRecyclerAdapter.O
     }
 
     @Override
-    public void onItemSelected(long itemId) {
+    public void onItemSelected(long itemId, String type) {
         Intent intent = new Intent(getContext(), DetailActivity.class);
         startActivity(intent);
     }

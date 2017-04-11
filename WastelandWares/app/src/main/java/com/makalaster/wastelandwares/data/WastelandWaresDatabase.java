@@ -257,4 +257,94 @@ public class WastelandWaresDatabase extends SQLiteOpenHelper {
 
         return everythingForSale;
     }
+
+    public Item getItemById(long itemId) {
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.query(MiscTable.TABLE_NAME, null,
+                MiscTable.COLUMN_ID + " = ? ",
+                new String[]{String.valueOf(itemId)},
+                null, null, null);
+
+        String name = cursor.getString(cursor.getColumnIndex(MiscTable.COLUMN_NAME));
+        String description = cursor.getString(cursor.getColumnIndex(MiscTable.COLUMN_DESCRIPTION));
+        double price = cursor.getDouble(cursor.getColumnIndex(MiscTable.COLUMN_PRICE));
+        double rating = cursor.getDouble(cursor.getColumnIndex(MiscTable.COLUMN_RATING));
+        long id = cursor.getLong(cursor.getColumnIndex(MiscTable.COLUMN_ID));
+        int weight = cursor.getInt(cursor.getColumnIndex(MiscTable.COLUMN_WEIGHT));
+
+        Item item = new Item(name, description, price, rating, id, weight);
+
+        cursor.close();
+
+        return item;
+    }
+
+    public Armor getArmorById(long itemId) {
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor armorCursor = db.query(ArmorTable.TABLE_NAME, null,
+                ArmorTable.COLUMN_ID + " = ? ",
+                new String[]{String.valueOf(itemId)},
+                null, null, null);
+
+        String name = armorCursor.getString(armorCursor.getColumnIndex(ArmorTable.COLUMN_NAME));
+        String description = armorCursor.getString(armorCursor.getColumnIndex(ArmorTable.COLUMN_DESCRIPTION));
+        double price = armorCursor.getDouble(armorCursor.getColumnIndex(ArmorTable.COLUMN_PRICE));
+        double rating = armorCursor.getDouble(armorCursor.getColumnIndex(ArmorTable.COLUMN_RATING));
+        long id = armorCursor.getLong(armorCursor.getColumnIndex(ArmorTable.COLUMN_ID));
+        int weight = armorCursor.getInt(armorCursor.getColumnIndex(ArmorTable.COLUMN_WEIGHT));
+        int defense = armorCursor.getInt(armorCursor.getColumnIndex(ArmorTable.COLUMN_DEFENSE));
+
+        Armor armor = new Armor(name, description, price, rating, id, weight, 100, defense);
+
+        armorCursor.close();
+
+        return armor;
+    }
+
+    public Weapon getWeaponById(long itemId) {
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor weaponCursor = db.query(WeaponTable.TABLE_NAME, null,
+                WeaponTable.COLUMN_ID + " = ? ",
+                new String[]{String.valueOf(itemId)},
+                null, null, null);
+
+        String name = weaponCursor.getString(weaponCursor.getColumnIndex(WeaponTable.COLUMN_NAME));
+        String description = weaponCursor.getString(weaponCursor.getColumnIndex(WeaponTable.COLUMN_DESCRIPTION));
+        double price = weaponCursor.getDouble(weaponCursor.getColumnIndex(WeaponTable.COLUMN_PRICE));
+        double rating = weaponCursor.getDouble(weaponCursor.getColumnIndex(WeaponTable.COLUMN_RATING));
+        long id = weaponCursor.getLong(weaponCursor.getColumnIndex(WeaponTable.COLUMN_ID));
+        int weight = weaponCursor.getInt(weaponCursor.getColumnIndex(WeaponTable.COLUMN_WEIGHT));
+        int damage = weaponCursor.getInt(weaponCursor.getColumnIndex(WeaponTable.COLUMN_DAMAGE));
+        int capacity = weaponCursor.getInt(weaponCursor.getColumnIndex(WeaponTable.COLUMN_CAPACITY));
+        String typeRequired = weaponCursor.getString(weaponCursor.getColumnIndex(WeaponTable.COLUMN_AMMO));
+
+        Weapon weapon = new Weapon(name, description, price, rating, id, weight, 100, damage, capacity, capacity, typeRequired);
+
+        weaponCursor.close();
+
+        return weapon;
+    }
+
+    public Aid getAidById(long itemId) {
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor aidCursor = db.query(AidTable.TABLE_NAME, null,
+                AidTable.COLUMN_ID + " = ? ",
+                new String[]{String.valueOf(itemId)},
+                null, null, null);
+
+        String name = aidCursor.getString(aidCursor.getColumnIndex(AidTable.COLUMN_NAME));
+        String description = aidCursor.getString(aidCursor.getColumnIndex(AidTable.COLUMN_DESCRIPTION));
+        double price = aidCursor.getDouble(aidCursor.getColumnIndex(AidTable.COLUMN_PRICE));
+        double rating = aidCursor.getDouble(aidCursor.getColumnIndex(AidTable.COLUMN_RATING));
+        long id = aidCursor.getLong(aidCursor.getColumnIndex(AidTable.COLUMN_ID));
+        int weight = aidCursor.getInt(aidCursor.getColumnIndex(AidTable.COLUMN_WEIGHT));
+        int hp = aidCursor.getInt(aidCursor.getColumnIndex(AidTable.COLUMN_HP));
+        int rads = aidCursor.getInt(aidCursor.getColumnIndex(AidTable.COLUMN_RADS));
+
+        Aid aid = new Aid(name, description, price, rating, id, weight, hp, rads);
+
+        aidCursor.close();
+
+        return aid;
+    }
 }
