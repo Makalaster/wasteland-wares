@@ -1,4 +1,4 @@
-package com.makalaster.wastelandwares.shopWares.Recycler;
+package com.makalaster.wastelandwares.shopWares.recycler;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,7 +11,6 @@ import com.makalaster.wastelandwares.data.Armor;
 import com.makalaster.wastelandwares.data.Item;
 import com.makalaster.wastelandwares.data.Weapon;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -96,5 +95,9 @@ public class WaresRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
         } else {
             return ITEM;
         }
+    }
+
+    public interface OnItemSelectedListener {
+        void onItemSelected(int itemId);
     }
 }

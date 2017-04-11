@@ -1,4 +1,4 @@
-package com.makalaster.wastelandwares.shopWares.Recycler;
+package com.makalaster.wastelandwares.shopWares.recycler;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;

@@ -13,8 +13,11 @@ import android.view.MenuItem;
 
 import com.makalaster.wastelandwares.R;
 import com.makalaster.wastelandwares.setup.DBAssetHelper;
+import com.makalaster.wastelandwares.shopWares.recycler.WaresRecyclerAdapter;
 
-public class MainActivity extends AppCompatActivity implements ShoppingFragment.OnItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements
+        ShoppingFragment.OnItemSelectedListener,
+        WaresRecyclerAdapter.OnItemSelectedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,5 +70,10 @@ public class MainActivity extends AppCompatActivity implements ShoppingFragment.
     @Override
     public void onItemSelected(View view) {
 
+    }
+
+    @Override
+    public void onItemSelected(int itemId) {
+        //Intent intent = new Intent(MainActivity.this, )
     }
 }

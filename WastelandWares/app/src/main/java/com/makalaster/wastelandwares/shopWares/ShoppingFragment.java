@@ -1,7 +1,6 @@
 package com.makalaster.wastelandwares.shopWares;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -13,12 +12,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.makalaster.wastelandwares.R;
-import com.makalaster.wastelandwares.data.Aid;
-import com.makalaster.wastelandwares.data.Armor;
 import com.makalaster.wastelandwares.data.Item;
 import com.makalaster.wastelandwares.data.WastelandWaresDatabase;
-import com.makalaster.wastelandwares.data.Weapon;
-import com.makalaster.wastelandwares.shopWares.Recycler.WaresRecyclerAdapter;
+import com.makalaster.wastelandwares.shopWares.recycler.WaresRecyclerAdapter;
 
 import java.util.List;
 
