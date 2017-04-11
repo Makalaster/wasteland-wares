@@ -14,6 +14,7 @@ import com.makalaster.wastelandwares.R;
 public class DetailHolder extends RecyclerView.ViewHolder {
     public ImageView mThumbnail;
     public TextView mValue, mAttribute, mAttributeValue, mItemName;
+    public View mTarget;
 
     public DetailHolder(View itemView) {
         super(itemView);
@@ -23,5 +24,6 @@ public class DetailHolder extends RecyclerView.ViewHolder {
         mValue = (TextView) itemView.findViewById(R.id.value_textview);
         mAttribute = (TextView) itemView.findViewById(R.id.second_label);
         mAttributeValue = (TextView) itemView.findViewById(R.id.second_attribute);
+        mTarget = itemView.findViewById(R.id.click_target);
     }
 }

@@ -19,10 +19,12 @@ import java.util.List;
 
 public class WaresRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private List<Item> mItemList;
+    private OnItemSelectedListener mListener;
     private final static int ITEM = 0, AID = 1, WEAPON = 2, ARMOR = 3;
 
-    public WaresRecyclerAdapter(List<Item> itemList) {
+    public WaresRecyclerAdapter(List<Item> itemList, OnItemSelectedListener listener) {
         mItemList = itemList;
+        mListener = listener;
     }
 
     @Override
@@ -50,6 +52,8 @@ public class WaresRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
                 aidHolder.mValue.setText(String.valueOf(currentAid.getPrice()));
                 aidHolder.mAttribute.setText(R.string.hp_label);
                 aidHolder.mAttributeValue.setText(String.valueOf(currentAid.getHp()));
+
+                setOnItemSelectedListener(aidHolder, currentAid);
                 break;
             case WEAPON:
                 Weapon currentWeapon = (Weapon) mItemList.get(position);
@@ -59,6 +63,8 @@ public class WaresRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
                 weaponHolder.mValue.setText(String.valueOf(currentWeapon.getPrice()));
                 weaponHolder.mAttribute.setText(R.string.damage_label);
                 weaponHolder.mAttributeValue.setText(String.valueOf(currentWeapon.getDamage()));
+
+                setOnItemSelectedListener(weaponHolder, currentWeapon);
                 break;
             case ARMOR:
                 Armor currentArmor = (Armor) mItemList.get(position);
@@ -68,6 +74,8 @@ public class WaresRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
                 armorHolder.mValue.setText(String.valueOf(currentArmor.getPrice()));
                 armorHolder.mAttribute.setText(R.string.defense_label);
                 armorHolder.mAttributeValue.setText(String.valueOf(currentArmor.getDefense()));
+
+                setOnItemSelectedListener(armorHolder, currentArmor);
                 break;
             case ITEM:
                 Item currentItem = mItemList.get(position);
@@ -75,6 +83,8 @@ public class WaresRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
 
                 miscHolder.mItemName.setText(currentItem.getName());
                 miscHolder.mValue.setText(String.valueOf(currentItem.getPrice()));
+
+                setOnItemSelectedListener(miscHolder, currentItem);
                 break;
         }
     }
@@ -97,7 +107,25 @@ public class WaresRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
         }
     }
 
+    public void setOnItemSelectedListener(DetailHolder detailHolder, final Item item) {
+        detailHolder.mTarget.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mListener.onItemSelected(item.getId());
+            }
+        });
+    }
+
+    public void setOnItemSelectedListener(MiscHolder miscHolder, final Item item) {
+        miscHolder.mTarget.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mListener.onItemSelected(item.getId());
+            }
+        });
+    }
+
     public interface OnItemSelectedListener {
-        void onItemSelected(int itemId);
+        void onItemSelected(long itemId);
     }
 }

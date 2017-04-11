@@ -1,6 +1,7 @@
 package com.makalaster.wastelandwares.shopWares;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -14,6 +15,7 @@ import android.view.ViewGroup;
 import com.makalaster.wastelandwares.R;
 import com.makalaster.wastelandwares.data.Item;
 import com.makalaster.wastelandwares.data.WastelandWaresDatabase;
+import com.makalaster.wastelandwares.detail.DetailActivity;
 import com.makalaster.wastelandwares.shopWares.recycler.WaresRecyclerAdapter;
 
 import java.util.List;
@@ -23,18 +25,18 @@ import static android.content.ContentValues.TAG;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link OnItemSelectedListener} interface
+ * {@link OnFragmentInteractionListener} interface
  * to handle interaction events.
  * Use the {@link ShoppingFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ShoppingFragment extends Fragment {
+public class ShoppingFragment extends Fragment implements WaresRecyclerAdapter.OnItemSelectedListener {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     public static final String SELECTED_TAB = "selectedTab";
 
     private int mSelectedTab;
 
-    private OnItemSelectedListener mListener;
+    private OnFragmentInteractionListener mListener;
 
     public ShoppingFragment() {
         // Required empty public constructor
@@ -85,31 +87,31 @@ public class ShoppingFragment extends Fragment {
         switch (mSelectedTab) {
             case 0:
                 List<Item> list = wastelandWaresDatabase.getEverythingForSale();
-                adapter = new WaresRecyclerAdapter(list);
+                adapter = new WaresRecyclerAdapter(list, this);
                 Log.d(TAG, "onViewCreated: tab 0");
                 break;
             case 1:
                 List<Item> armorList = wastelandWaresDatabase.getAllArmor();
-                adapter = new WaresRecyclerAdapter(armorList);
+                adapter = new WaresRecyclerAdapter(armorList, this);
                 Log.d(TAG, "onViewCreated: tab 1");
                 break;
             case 2:
                 List<Item> weaponList = wastelandWaresDatabase.getAllWeapons();
-                adapter = new WaresRecyclerAdapter(weaponList);
+                adapter = new WaresRecyclerAdapter(weaponList, this);
                 Log.d(TAG, "onViewCreated: tab 2");
                 break;
             case 3:
                 List<Item> aidList = wastelandWaresDatabase.getAllAid();
-                adapter = new WaresRecyclerAdapter(aidList);
+                adapter = new WaresRecyclerAdapter(aidList, this);
                 Log.d(TAG, "onViewCreated: tab 3");
                 break;
             case 4:
                 List<Item> miscList = wastelandWaresDatabase.getAllMisc();
-                adapter = new WaresRecyclerAdapter(miscList);
+                adapter = new WaresRecyclerAdapter(miscList, this);
                 Log.d(TAG, "onViewCreated: tab 4");
                 break;
             default:
-                adapter = new WaresRecyclerAdapter(null);
+                adapter = new WaresRecyclerAdapter(null, null);
         }
 
         recyclerView.setAdapter(adapter);
@@ -118,11 +120,11 @@ public class ShoppingFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnItemSelectedListener) {
-            mListener = (OnItemSelectedListener) context;
+        if (context instanceof OnFragmentInteractionListener) {
+            mListener = (OnFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
-                    + " must implement OnItemSelectedListener");
+                    + " must implement OnFragmentInteractionListener");
         }
     }
 
@@ -130,6 +132,12 @@ public class ShoppingFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void onItemSelected(long itemId) {
+        Intent intent = new Intent(getContext(), DetailActivity.class);
+        startActivity(intent);
     }
 
     /**
@@ -142,7 +150,7 @@ public class ShoppingFragment extends Fragment {
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
-    public interface OnItemSelectedListener {
-        void onItemSelected(View view);
+    public interface OnFragmentInteractionListener {
+        void onFragmentInteracted(View view);
     }
 }

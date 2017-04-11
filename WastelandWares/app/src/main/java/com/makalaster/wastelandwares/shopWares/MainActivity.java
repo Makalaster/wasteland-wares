@@ -1,5 +1,6 @@
 package com.makalaster.wastelandwares.shopWares;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -12,11 +13,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.makalaster.wastelandwares.R;
+import com.makalaster.wastelandwares.detail.DetailActivity;
 import com.makalaster.wastelandwares.setup.DBAssetHelper;
 import com.makalaster.wastelandwares.shopWares.recycler.WaresRecyclerAdapter;
 
 public class MainActivity extends AppCompatActivity implements
-        ShoppingFragment.OnItemSelectedListener,
+        ShoppingFragment.OnFragmentInteractionListener,
         WaresRecyclerAdapter.OnItemSelectedListener {
 
     @Override
@@ -68,12 +70,13 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void onItemSelected(View view) {
+    public void onFragmentInteracted(View view) {
 
     }
 
     @Override
-    public void onItemSelected(int itemId) {
-        //Intent intent = new Intent(MainActivity.this, )
+    public void onItemSelected(long itemId) {
+        Intent intent = new Intent(MainActivity.this, DetailActivity.class);
+        startActivity(intent);
     }
 }

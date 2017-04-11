@@ -14,6 +14,7 @@ import com.makalaster.wastelandwares.R;
 public class MiscHolder extends RecyclerView.ViewHolder {
     public ImageView mThumbnail;
     public TextView mValue, mItemName;
+    public View mTarget;
 
     public MiscHolder(View itemView) {
         super(itemView);
@@ -21,5 +22,6 @@ public class MiscHolder extends RecyclerView.ViewHolder {
         mThumbnail = (ImageView) itemView.findViewById(R.id.thumbnail);
         mValue = (TextView) itemView.findViewById(R.id.value_textview);
         mItemName = (TextView) itemView.findViewById(R.id.item_name);
+        mTarget = itemView.findViewById(R.id.click_target);
     }
 }
