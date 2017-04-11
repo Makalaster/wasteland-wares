@@ -45,7 +45,7 @@ public class WaresRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         switch (holder.getItemViewType()) {
             case AID:
-                Aid currentAid = (Aid) mItemList.get(position);
+                final Aid currentAid = (Aid) mItemList.get(position);
                 DetailHolder aidHolder = (DetailHolder) holder;
 
                 aidHolder.mItemName.setText(currentAid.getName());
@@ -108,20 +108,26 @@ public class WaresRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
         }
     }
 
-    public void setOnItemSelectedListener(DetailHolder detailHolder, final Item item) {
+    public void setOnItemSelectedListener(DetailHolder detailHolder, Item item) {
+        final long id = item.getId();
+        final String type = item.getClass().getSimpleName();
+
         detailHolder.mTarget.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mListener.onItemSelected(item.getId(), item.getClass().getSimpleName());
+                mListener.onItemSelected(id, type);
             }
         });
     }
 
-    public void setOnItemSelectedListener(MiscHolder miscHolder, final Item item) {
+    public void setOnItemSelectedListener(MiscHolder miscHolder, Item item) {
+        final long id = item.getId();
+        final String type = item.getClass().getSimpleName();
+
         miscHolder.mTarget.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mListener.onItemSelected(item.getId(), item.getClass().getSimpleName());
+                mListener.onItemSelected(id, type);
             }
         });
     }

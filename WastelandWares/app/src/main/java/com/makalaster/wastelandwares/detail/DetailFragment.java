@@ -23,7 +23,7 @@ public class DetailFragment extends Fragment {
     private static final String ARG_ITEM_ID = "param1";
     private static final String ARG_ITEM_TYPE = "param2";
 
-    private String mItemId;
+    private long mItemId;
     private String mItemType;
 
     private OnFragmentInteractionListener mListener;
@@ -54,7 +54,7 @@ public class DetailFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mItemId = getArguments().getString(ARG_ITEM_ID);
+            mItemId = getArguments().getLong(ARG_ITEM_ID);
             mItemType = getArguments().getString(ARG_ITEM_TYPE);
         }
     }

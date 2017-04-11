@@ -265,6 +265,8 @@ public class WastelandWaresDatabase extends SQLiteOpenHelper {
                 new String[]{String.valueOf(itemId)},
                 null, null, null);
 
+        cursor.moveToFirst();
+
         String name = cursor.getString(cursor.getColumnIndex(MiscTable.COLUMN_NAME));
         String description = cursor.getString(cursor.getColumnIndex(MiscTable.COLUMN_DESCRIPTION));
         double price = cursor.getDouble(cursor.getColumnIndex(MiscTable.COLUMN_PRICE));
@@ -285,6 +287,8 @@ public class WastelandWaresDatabase extends SQLiteOpenHelper {
                 ArmorTable.COLUMN_ID + " = ? ",
                 new String[]{String.valueOf(itemId)},
                 null, null, null);
+
+        armorCursor.moveToFirst();
 
         String name = armorCursor.getString(armorCursor.getColumnIndex(ArmorTable.COLUMN_NAME));
         String description = armorCursor.getString(armorCursor.getColumnIndex(ArmorTable.COLUMN_DESCRIPTION));
@@ -307,6 +311,8 @@ public class WastelandWaresDatabase extends SQLiteOpenHelper {
                 WeaponTable.COLUMN_ID + " = ? ",
                 new String[]{String.valueOf(itemId)},
                 null, null, null);
+
+        weaponCursor.moveToFirst();
 
         String name = weaponCursor.getString(weaponCursor.getColumnIndex(WeaponTable.COLUMN_NAME));
         String description = weaponCursor.getString(weaponCursor.getColumnIndex(WeaponTable.COLUMN_DESCRIPTION));
@@ -332,6 +338,8 @@ public class WastelandWaresDatabase extends SQLiteOpenHelper {
                 new String[]{String.valueOf(itemId)},
                 null, null, null);
 
+        aidCursor.moveToFirst();
+
         String name = aidCursor.getString(aidCursor.getColumnIndex(AidTable.COLUMN_NAME));
         String description = aidCursor.getString(aidCursor.getColumnIndex(AidTable.COLUMN_DESCRIPTION));
         double price = aidCursor.getDouble(aidCursor.getColumnIndex(AidTable.COLUMN_PRICE));
@@ -342,6 +350,7 @@ public class WastelandWaresDatabase extends SQLiteOpenHelper {
         int rads = aidCursor.getInt(aidCursor.getColumnIndex(AidTable.COLUMN_RADS));
 
         Aid aid = new Aid(name, description, price, rating, id, weight, hp, rads);
+
 
         aidCursor.close();
 

@@ -36,7 +36,7 @@ public class ShoppingFragment extends Fragment implements WaresRecyclerAdapter.O
 
     private int mSelectedTab;
 
-    private OnFragmentInteractionListener mListener;
+    private WaresRecyclerAdapter.OnItemSelectedListener mListener;
 
     public ShoppingFragment() {
         // Required empty public constructor
@@ -87,27 +87,27 @@ public class ShoppingFragment extends Fragment implements WaresRecyclerAdapter.O
         switch (mSelectedTab) {
             case 0:
                 List<Item> list = wastelandWaresDatabase.getEverythingForSale();
-                adapter = new WaresRecyclerAdapter(list, this);
+                adapter = new WaresRecyclerAdapter(list, mListener);
                 Log.d(TAG, "onViewCreated: tab 0");
                 break;
             case 1:
                 List<Item> armorList = wastelandWaresDatabase.getAllArmor();
-                adapter = new WaresRecyclerAdapter(armorList, this);
+                adapter = new WaresRecyclerAdapter(armorList, mListener);
                 Log.d(TAG, "onViewCreated: tab 1");
                 break;
             case 2:
                 List<Item> weaponList = wastelandWaresDatabase.getAllWeapons();
-                adapter = new WaresRecyclerAdapter(weaponList, this);
+                adapter = new WaresRecyclerAdapter(weaponList, mListener);
                 Log.d(TAG, "onViewCreated: tab 2");
                 break;
             case 3:
                 List<Item> aidList = wastelandWaresDatabase.getAllAid();
-                adapter = new WaresRecyclerAdapter(aidList, this);
+                adapter = new WaresRecyclerAdapter(aidList, mListener);
                 Log.d(TAG, "onViewCreated: tab 3");
                 break;
             case 4:
                 List<Item> miscList = wastelandWaresDatabase.getAllMisc();
-                adapter = new WaresRecyclerAdapter(miscList, this);
+                adapter = new WaresRecyclerAdapter(miscList, mListener);
                 Log.d(TAG, "onViewCreated: tab 4");
                 break;
             default:
@@ -121,7 +121,7 @@ public class ShoppingFragment extends Fragment implements WaresRecyclerAdapter.O
     public void onAttach(Context context) {
         super.onAttach(context);
         if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
+            mListener = (WaresRecyclerAdapter.OnItemSelectedListener) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
@@ -136,8 +136,8 @@ public class ShoppingFragment extends Fragment implements WaresRecyclerAdapter.O
 
     @Override
     public void onItemSelected(long itemId, String type) {
-        Intent intent = new Intent(getContext(), DetailActivity.class);
-        startActivity(intent);
+        //Intent intent = new Intent(getContext(), DetailActivity.class);
+        //startActivity(intent);
     }
 
     /**

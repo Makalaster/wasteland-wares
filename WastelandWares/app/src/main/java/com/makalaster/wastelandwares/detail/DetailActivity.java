@@ -8,13 +8,18 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 
 import com.makalaster.wastelandwares.R;
+import com.makalaster.wastelandwares.data.WastelandWaresDatabase;
 
 public class DetailActivity extends AppCompatActivity implements DetailFragment.OnFragmentInteractionListener {
     public static final String ITEM_ID_KEY = "itemIdKey";
     public static final String ITEM_TYPE = "itemType";
+
+    private long mSelectedItemId;
+    private String mSelectedItemType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,13 +28,18 @@ public class DetailActivity extends AppCompatActivity implements DetailFragment.
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        long selectedItemId = getIntent().getLongExtra(ITEM_ID_KEY, -1);
-        String selectedItemType = getIntent().getStringExtra(ITEM_TYPE);
+        mSelectedItemId = getIntent().getLongExtra(ITEM_ID_KEY, -1);
+        mSelectedItemType = getIntent().getStringExtra(ITEM_TYPE);
+
+        if (mSelectedItemId == -1) {
+            Log.d("DetailActivity", "onCreate: no ID passed!");
+            finish();
+        }
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
 
-        DetailFragment detailFragment = DetailFragment.newInstance(selectedItemId, selectedItemType);
+        DetailFragment detailFragment = DetailFragment.newInstance(mSelectedItemId, mSelectedItemType);
         transaction.add(R.id.detail_fragment_container, detailFragment).commit();
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -40,6 +50,34 @@ public class DetailActivity extends AppCompatActivity implements DetailFragment.
                         .setAction("Action", null).show();
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        setActivityTitle(mSelectedItemId, mSelectedItemType);
+    }
+
+    public void setActivityTitle(long id, String type) {
+        WastelandWaresDatabase db = WastelandWaresDatabase.getInstance(this);
+        String title;
+
+        switch (type) {
+            case "Aid":
+                title = db.getAidById(id).getName();
+                break;
+            case "Armor":
+                title = db.getArmorById(id).getName();
+                break;
+            case "Weapon":
+                title = db.getWeaponById(id).getName();
+                break;
+            default:
+                title = db.getItemById(id).getName();
+        }
+
+        getSupportActionBar().setTitle(title);
     }
 
     @Override
