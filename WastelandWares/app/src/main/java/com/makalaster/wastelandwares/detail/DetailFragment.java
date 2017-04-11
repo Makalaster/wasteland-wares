@@ -8,8 +8,14 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.makalaster.wastelandwares.R;
+import com.makalaster.wastelandwares.data.Aid;
+import com.makalaster.wastelandwares.data.Armor;
+import com.makalaster.wastelandwares.data.Item;
+import com.makalaster.wastelandwares.data.WastelandWaresDatabase;
+import com.makalaster.wastelandwares.data.Weapon;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -25,6 +31,7 @@ public class DetailFragment extends Fragment {
 
     private long mItemId;
     private String mItemType;
+    private WastelandWaresDatabase mWastelandWaresDatabase = WastelandWaresDatabase.getInstance(getContext());
 
     private OnFragmentInteractionListener mListener;
 
@@ -40,7 +47,6 @@ public class DetailFragment extends Fragment {
      * @param itemType Parameter 2.
      * @return A new instance of fragment DetailFragment.
      */
-    // TODO: Rename and change types and number of parameters
     public static DetailFragment newInstance(long itemId, String itemType) {
         DetailFragment fragment = new DetailFragment();
         Bundle args = new Bundle();
@@ -63,12 +69,57 @@ public class DetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_detail, container, false);
+        switch (mItemType) {
+            case "Aid":
+                return inflater.inflate(R.layout.fragment_aid_detail, container, false);
+            case "Weapon":
+                return inflater.inflate(R.layout.fragment_weapon_detail, container, false);
+            case "Armor":
+                return inflater.inflate(R.layout.fragment_armor_detail, container, false);
+            default:
+                return inflater.inflate(R.layout.fragment_item_detail, container, false);
+        }
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        populateView(view);
+    }
+
+    public void populateView(View view) {
+        switch (mItemType) {
+            case "Aid":
+                Aid openedAid = mWastelandWaresDatabase.getAidById(mItemId);
+                ((TextView)view.findViewById(R.id.value_value)).setText(String.valueOf(openedAid.getPrice()));
+                ((TextView)view.findViewById(R.id.weight_value)).setText(String.valueOf(openedAid.getWeight()));
+                ((TextView)view.findViewById(R.id.hp_value)).setText(String.valueOf(openedAid.getHp()));
+                ((TextView)view.findViewById(R.id.radiation_value)).setText(String.valueOf(openedAid.getRads()));
+                ((TextView)view.findViewById(R.id.item_description)).setText(openedAid.getDescription());
+                break;
+            case "Weapon":
+                Weapon openedWeapon = mWastelandWaresDatabase.getWeaponById(mItemId);
+                ((TextView)view.findViewById(R.id.value_value)).setText(String.valueOf(openedWeapon.getPrice()));
+                ((TextView)view.findViewById(R.id.weight_value)).setText(String.valueOf(openedWeapon.getWeight()));
+                ((TextView)view.findViewById(R.id.damage_value)).setText(String.valueOf(openedWeapon.getDamage()));
+                ((TextView)view.findViewById(R.id.capacity_value)).setText(String.valueOf(openedWeapon.getAmmoCapacity()));
+                ((TextView)view.findViewById(R.id.ammo_value)).setText(openedWeapon.getAmmoRequired());
+                ((TextView)view.findViewById(R.id.item_description)).setText(openedWeapon.getDescription());
+                break;
+            case "Armor":
+                Armor openedArmor = mWastelandWaresDatabase.getArmorById(mItemId);
+                ((TextView)view.findViewById(R.id.value_value)).setText(String.valueOf(openedArmor.getPrice()));
+                ((TextView)view.findViewById(R.id.weight_value)).setText(String.valueOf(openedArmor.getWeight()));
+                ((TextView)view.findViewById(R.id.defense_value)).setText(String.valueOf(openedArmor.getDefense()));
+                ((TextView)view.findViewById(R.id.item_description)).setText(openedArmor.getDescription());
+                break;
+            default:
+                Item openedItem = mWastelandWaresDatabase.getItemById(mItemId);
+                ((TextView)view.findViewById(R.id.value_value)).setText(String.valueOf(openedItem.getPrice()));
+                ((TextView)view.findViewById(R.id.weight_value)).setText(String.valueOf(openedItem.getWeight()));
+                ((TextView)view.findViewById(R.id.item_description)).setText(openedItem.getDescription());
+        }
     }
 
     public void onButtonPressed(Uri uri) {
