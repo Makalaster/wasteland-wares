@@ -10,13 +10,13 @@ import java.util.HashMap;
 public class Cart {
     private HashMap<ItemId, Integer> mContents;
     private Date mCartCompletionDate;
-    private double mTotal;
+    private int mTotal;
 
     private static Cart sCart;
 
     public Cart() {
         mCartCompletionDate = new Date();
-        mTotal = 0.0;
+        mTotal = 0;
         mContents = new HashMap<>();
     }
 
@@ -68,6 +68,12 @@ public class Cart {
     }
 
     public double getTotal() {
-        return mTotal;
+        int total = 0;
+
+        for (ItemId key : mContents.keySet()) {
+            total += mContents.get(key);
+        }
+
+        return total;
     }
 }
