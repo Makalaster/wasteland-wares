@@ -33,6 +33,7 @@ public class ShoppingFragment extends Fragment implements WaresRecyclerAdapter.O
     public static final String SELECTED_TAB = "selectedTab";
 
     private int mSelectedTab;
+    private WaresRecyclerAdapter mAdapter;
 
     private WaresRecyclerAdapter.OnItemSelectedListener mListener;
 
@@ -62,8 +63,6 @@ public class ShoppingFragment extends Fragment implements WaresRecyclerAdapter.O
         if (getArguments() != null) {
             mSelectedTab = getArguments().getInt(SELECTED_TAB);
         }
-
-        Log.d(TAG, "onCreate: ");
     }
 
     @Override
@@ -80,39 +79,87 @@ public class ShoppingFragment extends Fragment implements WaresRecyclerAdapter.O
         WastelandWaresDatabase wastelandWaresDatabase = WastelandWaresDatabase.getInstance(view.getContext());
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recycler);
         recyclerView.setLayoutManager(new GridLayoutManager(view.getContext(), 2));
-        WaresRecyclerAdapter adapter;
 
         switch (mSelectedTab) {
             case 0:
                 List<Item> list = wastelandWaresDatabase.getEverythingForSale();
-                adapter = new WaresRecyclerAdapter(list, mListener);
-                Log.d(TAG, "onViewCreated: tab 0");
+                mAdapter = new WaresRecyclerAdapter(list, mListener);
                 break;
             case 1:
                 List<Item> armorList = wastelandWaresDatabase.getAllArmor();
-                adapter = new WaresRecyclerAdapter(armorList, mListener);
-                Log.d(TAG, "onViewCreated: tab 1");
+                mAdapter = new WaresRecyclerAdapter(armorList, mListener);
                 break;
             case 2:
                 List<Item> weaponList = wastelandWaresDatabase.getAllWeapons();
-                adapter = new WaresRecyclerAdapter(weaponList, mListener);
-                Log.d(TAG, "onViewCreated: tab 2");
+                mAdapter = new WaresRecyclerAdapter(weaponList, mListener);
                 break;
             case 3:
                 List<Item> aidList = wastelandWaresDatabase.getAllAid();
-                adapter = new WaresRecyclerAdapter(aidList, mListener);
-                Log.d(TAG, "onViewCreated: tab 3");
+                mAdapter = new WaresRecyclerAdapter(aidList, mListener);
                 break;
             case 4:
                 List<Item> miscList = wastelandWaresDatabase.getAllMisc();
-                adapter = new WaresRecyclerAdapter(miscList, mListener);
-                Log.d(TAG, "onViewCreated: tab 4");
+                mAdapter = new WaresRecyclerAdapter(miscList, mListener);
                 break;
             default:
-                adapter = new WaresRecyclerAdapter(null, null);
+                mAdapter = new WaresRecyclerAdapter(null, null);
         }
 
-        recyclerView.setAdapter(adapter);
+        recyclerView.setAdapter(mAdapter);
+    }
+
+    public void search(String query) {
+        WastelandWaresDatabase db = WastelandWaresDatabase.getInstance(getContext());
+
+        switch (mSelectedTab) {
+            case 0:
+                List<Item> searchAllList = db.searchAllByNameOrDescription(query);
+                mAdapter.replaceData(searchAllList);
+                break;
+            case 1:
+                List<Item> searchArmorList = db.searchArmorByNameOrDescription(query);
+                mAdapter.replaceData(searchArmorList);
+                break;
+            case 2:
+                List<Item> searchWeaponList = db.searchWeaponByNameOrDescription(query);
+                mAdapter.replaceData(searchWeaponList);
+                break;
+            case 3:
+                List<Item> searchAidList = db.searchAidByNameOrDescription(query);
+                mAdapter.replaceData(searchAidList);
+                break;
+            case 4:
+                List<Item> searchItemList = db.searchItemByNameOrDescription(query);
+                mAdapter.replaceData(searchItemList);
+                break;
+        }
+    }
+
+    public void returnFromSearch() {
+        WastelandWaresDatabase wastelandWaresDatabase = WastelandWaresDatabase.getInstance(getContext());
+
+        switch (mSelectedTab) {
+            case 0:
+                List<Item> list = wastelandWaresDatabase.getEverythingForSale();
+                mAdapter.replaceData(list);
+                break;
+            case 1:
+                List<Item> armorList = wastelandWaresDatabase.getAllArmor();
+                mAdapter.replaceData(armorList);
+                break;
+            case 2:
+                List<Item> weaponList = wastelandWaresDatabase.getAllWeapons();
+                mAdapter.replaceData(weaponList);
+                break;
+            case 3:
+                List<Item> aidList = wastelandWaresDatabase.getAllAid();
+                mAdapter.replaceData(aidList);
+                break;
+            case 4:
+                List<Item> miscList = wastelandWaresDatabase.getAllMisc();
+                mAdapter.replaceData(miscList);
+                break;
+        }
     }
 
     @Override

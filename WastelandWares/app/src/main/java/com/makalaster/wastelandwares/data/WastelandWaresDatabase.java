@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.database.sqlite.SQLiteQueryBuilder;
 import android.provider.BaseColumns;
 
 import java.util.ArrayList;
@@ -355,5 +356,131 @@ public class WastelandWaresDatabase extends SQLiteOpenHelper {
         aidCursor.close();
 
         return aid;
+    }
+
+    public List<Item> searchAidByNameOrDescription(String query) {
+        SQLiteDatabase db = getReadableDatabase();
+        List<Item> aidList = new ArrayList<>();
+
+        Cursor aidCursor = db.query(AidTable.TABLE_NAME, null,
+                AidTable.COLUMN_NAME + " LIKE ? OR " + AidTable.COLUMN_DESCRIPTION + " LIKE ?",
+                new String[]{"%" + query + "%", "%" + query + "%"},
+                null, null, null);
+
+        if (aidCursor.moveToFirst()) {
+            while (!aidCursor.isAfterLast()) {
+                String name = aidCursor.getString(aidCursor.getColumnIndex(AidTable.COLUMN_NAME));
+                String description = aidCursor.getString(aidCursor.getColumnIndex(AidTable.COLUMN_DESCRIPTION));
+                double price = aidCursor.getDouble(aidCursor.getColumnIndex(AidTable.COLUMN_PRICE));
+                double rating = aidCursor.getDouble(aidCursor.getColumnIndex(AidTable.COLUMN_RATING));
+                long id = aidCursor.getLong(aidCursor.getColumnIndex(AidTable.COLUMN_ID));
+                int weight = aidCursor.getInt(aidCursor.getColumnIndex(AidTable.COLUMN_WEIGHT));
+                int hp = aidCursor.getInt(aidCursor.getColumnIndex(AidTable.COLUMN_HP));
+                int rads = aidCursor.getInt(aidCursor.getColumnIndex(AidTable.COLUMN_RADS));
+
+                aidList.add(new Aid(name, description, price, rating, id, weight, hp, rads));
+                aidCursor.moveToNext();
+            }
+        }
+
+        aidCursor.close();
+
+        return aidList;
+    }
+
+    public List<Item> searchArmorByNameOrDescription(String query) {
+        SQLiteDatabase db = getReadableDatabase();
+        List<Item> armorList = new ArrayList<>();
+
+        Cursor armorCursor = db.query(ArmorTable.TABLE_NAME, null,
+                ArmorTable.COLUMN_NAME + " LIKE ? OR " + ArmorTable.COLUMN_DESCRIPTION + " LIKE ?",
+                new String[]{"%" + query + "%", "%" + query + "%"},
+                null, null, null);
+
+        if (armorCursor.moveToFirst()) {
+            while (!armorCursor.isAfterLast()) {
+                String name = armorCursor.getString(armorCursor.getColumnIndex(ArmorTable.COLUMN_NAME));
+                String description = armorCursor.getString(armorCursor.getColumnIndex(ArmorTable.COLUMN_DESCRIPTION));
+                double price = armorCursor.getDouble(armorCursor.getColumnIndex(ArmorTable.COLUMN_PRICE));
+                double rating = armorCursor.getDouble(armorCursor.getColumnIndex(ArmorTable.COLUMN_RATING));
+                long id = armorCursor.getLong(armorCursor.getColumnIndex(ArmorTable.COLUMN_ID));
+                int weight = armorCursor.getInt(armorCursor.getColumnIndex(ArmorTable.COLUMN_WEIGHT));
+                int defense = armorCursor.getInt(armorCursor.getColumnIndex(ArmorTable.COLUMN_DEFENSE));
+
+                armorList.add(new Armor(name, description, price, rating, id, weight, 100, defense));
+                armorCursor.moveToNext();
+            }
+        }
+        armorCursor.close();
+
+        return armorList;
+    }
+
+    public List<Item> searchWeaponByNameOrDescription(String query) {
+        SQLiteDatabase db = getReadableDatabase();
+        List<Item> weaponList = new ArrayList<>();
+
+        Cursor weaponCursor = db.query(WeaponTable.TABLE_NAME, null,
+                WeaponTable.COLUMN_NAME + " LIKE ? OR " + WeaponTable.COLUMN_DESCRIPTION + " LIKE ?",
+                new String[]{"%" + query + "%", "%" + query + "%"},
+                null, null, null);
+
+        if (weaponCursor.moveToFirst()) {
+            while (!weaponCursor.isAfterLast()) {
+                String name = weaponCursor.getString(weaponCursor.getColumnIndex(WeaponTable.COLUMN_NAME));
+                String description = weaponCursor.getString(weaponCursor.getColumnIndex(WeaponTable.COLUMN_DESCRIPTION));
+                double price = weaponCursor.getDouble(weaponCursor.getColumnIndex(WeaponTable.COLUMN_PRICE));
+                double rating = weaponCursor.getDouble(weaponCursor.getColumnIndex(WeaponTable.COLUMN_RATING));
+                long id = weaponCursor.getLong(weaponCursor.getColumnIndex(WeaponTable.COLUMN_ID));
+                int weight = weaponCursor.getInt(weaponCursor.getColumnIndex(WeaponTable.COLUMN_WEIGHT));
+                int damage = weaponCursor.getInt(weaponCursor.getColumnIndex(WeaponTable.COLUMN_DAMAGE));
+                int capacity = weaponCursor.getInt(weaponCursor.getColumnIndex(WeaponTable.COLUMN_CAPACITY));
+                String typeRequired = weaponCursor.getString(weaponCursor.getColumnIndex(WeaponTable.COLUMN_AMMO));
+
+                weaponList.add(new Weapon(name, description, price, rating, id, weight, 100, damage, capacity, capacity, typeRequired));
+                weaponCursor.moveToNext();
+            }
+        }
+        weaponCursor.close();
+
+        return weaponList;
+    }
+
+    public List<Item> searchItemByNameOrDescription(String query) {
+        SQLiteDatabase db = getReadableDatabase();
+        List<Item> itemList = new ArrayList<>();
+
+        Cursor itemCursor = db.query(MiscTable.TABLE_NAME, null,
+                MiscTable.COLUMN_NAME + " LIKE ? OR " + MiscTable.COLUMN_DESCRIPTION + " LIKE ?",
+                new String[]{"%" + query + "%", "%" + query + "%"},
+                null, null, null);
+
+        if (itemCursor.moveToFirst()) {
+            while (!itemCursor.isAfterLast()) {
+                String name = itemCursor.getString(itemCursor.getColumnIndex(MiscTable.COLUMN_NAME));
+                String description = itemCursor.getString(itemCursor.getColumnIndex(MiscTable.COLUMN_DESCRIPTION));
+                double price = itemCursor.getDouble(itemCursor.getColumnIndex(MiscTable.COLUMN_PRICE));
+                double rating = itemCursor.getDouble(itemCursor.getColumnIndex(MiscTable.COLUMN_RATING));
+                long id = itemCursor.getLong(itemCursor.getColumnIndex(MiscTable.COLUMN_ID));
+                int weight = itemCursor.getInt(itemCursor.getColumnIndex(MiscTable.COLUMN_WEIGHT));
+
+                itemList.add(new Item(name, description, price, rating, id, weight));
+                itemCursor.moveToNext();
+            }
+        }
+        itemCursor.close();
+
+        return itemList;
+    }
+
+    public List<Item> searchAllByNameOrDescription(String query) {
+        List<Item> allItemsSearchResults = new ArrayList<>();
+
+        allItemsSearchResults.addAll(searchAidByNameOrDescription(query));
+        allItemsSearchResults.addAll(searchArmorByNameOrDescription(query));
+        allItemsSearchResults.addAll(searchWeaponByNameOrDescription(query));
+        allItemsSearchResults.addAll(searchItemByNameOrDescription(query));
+
+        return allItemsSearchResults;
     }
 }

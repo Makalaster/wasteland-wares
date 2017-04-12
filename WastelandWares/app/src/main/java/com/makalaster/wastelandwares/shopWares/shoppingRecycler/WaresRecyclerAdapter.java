@@ -135,4 +135,9 @@ public class WaresRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
     public interface OnItemSelectedListener {
         void onItemSelected(long itemId, String type);
     }
+
+    public void replaceData(List<Item> newList) {
+        mItemList = newList;
+        notifyDataSetChanged();
+    }
 }

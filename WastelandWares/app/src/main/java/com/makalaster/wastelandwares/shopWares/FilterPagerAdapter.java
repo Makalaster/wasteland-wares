@@ -4,14 +4,21 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.view.ViewGroup;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Makalaster on 4/10/17.
  */
 
 public class FilterPagerAdapter extends FragmentPagerAdapter {
+    private ShoppingFragment[] mFragmentList;
+
     public FilterPagerAdapter(FragmentManager fm) {
         super(fm);
+        mFragmentList = new ShoppingFragment[5];
     }
 
     @Override
@@ -53,5 +60,16 @@ public class FilterPagerAdapter extends FragmentPagerAdapter {
             default:
                 return null;
         }
+    }
+
+    @Override
+    public Object instantiateItem(ViewGroup container, int position) {
+        ShoppingFragment createdFragment = (ShoppingFragment) super.instantiateItem(container, position);
+        mFragmentList[position] = createdFragment;
+        return createdFragment;
+    }
+
+    public ShoppingFragment getFragmentAtPosition(int position) {
+        return mFragmentList[position];
     }
 }
