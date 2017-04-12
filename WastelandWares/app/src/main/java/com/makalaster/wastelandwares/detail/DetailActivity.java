@@ -12,6 +12,8 @@ import android.util.Log;
 import android.view.View;
 
 import com.makalaster.wastelandwares.R;
+import com.makalaster.wastelandwares.data.Cart;
+import com.makalaster.wastelandwares.data.ItemId;
 import com.makalaster.wastelandwares.data.WastelandWaresDatabase;
 
 public class DetailActivity extends AppCompatActivity implements DetailFragment.OnFragmentInteractionListener {
@@ -46,8 +48,10 @@ public class DetailActivity extends AppCompatActivity implements DetailFragment.
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Cart cart = Cart.getInstance();
+                cart.addItemToCart(new ItemId(mSelectedItemId, mSelectedItemType));
+
+                Snackbar.make(view, "Item added to cart", Snackbar.LENGTH_SHORT).show();
             }
         });
     }

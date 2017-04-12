@@ -70,22 +70,4 @@ public class Cart {
     public double getTotal() {
         return mTotal;
     }
-
-    public class ItemId {
-        private Long mItemId;
-        private String mItemType;
-
-        public ItemId(long id, String type) {
-            mItemId = id;
-            mItemType = type;
-        }
-
-        public Long getItemId() {
-            return mItemId;
-        }
-
-        public String getItemType() {
-            return mItemType;
-        }
-    }
 }

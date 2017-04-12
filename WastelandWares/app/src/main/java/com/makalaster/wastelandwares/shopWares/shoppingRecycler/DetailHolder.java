@@ -1,4 +1,4 @@
-package com.makalaster.wastelandwares.shopWares.recycler;
+package com.makalaster.wastelandwares.shopWares.shoppingRecycler;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -11,17 +11,19 @@ import com.makalaster.wastelandwares.R;
  * Created by Makalaster on 4/10/17.
  */
 
-public class MiscHolder extends RecyclerView.ViewHolder {
+public class DetailHolder extends RecyclerView.ViewHolder {
     public ImageView mThumbnail;
-    public TextView mValue, mItemName;
+    public TextView mValue, mAttribute, mAttributeValue, mItemName;
     public View mTarget;
 
-    public MiscHolder(View itemView) {
+    public DetailHolder(View itemView) {
         super(itemView);
 
         mThumbnail = (ImageView) itemView.findViewById(R.id.thumbnail);
-        mValue = (TextView) itemView.findViewById(R.id.value_textview);
         mItemName = (TextView) itemView.findViewById(R.id.item_name);
+        mValue = (TextView) itemView.findViewById(R.id.value_textview);
+        mAttribute = (TextView) itemView.findViewById(R.id.second_label);
+        mAttributeValue = (TextView) itemView.findViewById(R.id.second_attribute);
         mTarget = itemView.findViewById(R.id.click_target);
     }
 }
