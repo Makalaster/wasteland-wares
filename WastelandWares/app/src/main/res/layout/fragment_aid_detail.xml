@@ -2,46 +2,58 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:padding="24dp"
                 tools:context="com.makalaster.wastelandwares.detail.DetailFragment">
 
     <TextView
         android:id="@+id/value_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/value_label"/>
+        android:paddingBottom="@dimen/label_bottom_padding"
+        android:text="@string/value_label"
+        android:textSize="@dimen/label_text_size"/>
 
     <TextView
         android:id="@+id/value_value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/value_label"/>
+        android:layout_below="@id/value_label"
+        android:paddingBottom="@dimen/value_bottom_padding"
+        android:textSize="@dimen/value_text_size"/>
 
     <TextView
         android:id="@+id/weight_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:text="@string/weight_label"/>
+        android:paddingBottom="@dimen/label_bottom_padding"
+        android:text="@string/weight_label"
+        android:textSize="@dimen/label_text_size"/>
 
     <TextView
         android:id="@+id/weight_value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_below="@id/weight_label"/>
+        android:layout_below="@id/weight_label"
+        android:paddingBottom="@dimen/value_bottom_padding"
+        android:textSize="@dimen/value_text_size"/>
 
     <TextView
         android:id="@+id/hp_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/value_value"
-        android:text="@string/hp_label_long"/>
+        android:paddingBottom="@dimen/label_bottom_padding"
+        android:text="@string/hp_label_long"
+        android:textSize="@dimen/label_text_size"/>
 
     <TextView
         android:id="@+id/hp_value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/hp_label"/>
+        android:layout_below="@id/hp_label"
+        android:textSize="@dimen/value_text_size"/>
 
     <TextView
         android:id="@+id/radiation_label"
@@ -49,19 +61,23 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_below="@id/weight_value"
-        android:text="@string/radiation_inflicted"/>
+        android:text="@string/radiation_inflicted"
+        android:textSize="@dimen/label_text_size"/>
 
     <TextView
         android:id="@+id/radiation_value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_below="@id/radiation_label"/>
+        android:layout_below="@id/radiation_label"
+        android:textSize="@dimen/value_text_size"/>
 
     <TextView
         android:id="@+id/item_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/radiation_value"/>
+        android:layout_below="@id/radiation_value"
+        android:paddingTop="@dimen/description_top_padding"
+        android:textSize="@dimen/value_text_size"/>
 
 </RelativeLayout>

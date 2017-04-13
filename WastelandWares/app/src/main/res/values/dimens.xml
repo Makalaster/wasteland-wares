@@ -2,4 +2,9 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="app_bar_height">180dp</dimen>
     <dimen name="text_margin">16dp</dimen>
+    <dimen name="label_text_size">16sp</dimen>
+    <dimen name="value_text_size">20sp</dimen>
+    <dimen name="value_bottom_padding">16dp</dimen>
+    <dimen name="label_bottom_padding">4dp</dimen>
+    <dimen name="description_top_padding">20dp</dimen>
 </resources>
