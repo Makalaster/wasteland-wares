@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import android.view.ViewGroup;
 import com.makalaster.wastelandwares.R;
 import com.makalaster.wastelandwares.data.Cart;
 import com.makalaster.wastelandwares.data.ItemId;
+import com.makalaster.wastelandwares.data.WastelandWaresDatabase;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -66,6 +68,8 @@ public class DetailHolderFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        setTitle(view);
+
         DetailFragment detailFragment = DetailFragment.newInstance(mItemId, mItemType);
         getActivity().getSupportFragmentManager().beginTransaction().
                 replace(R.id.content_detail, detailFragment).commit();
@@ -80,5 +84,27 @@ public class DetailHolderFragment extends Fragment {
                 Snackbar.make(v, "Item added to cart", Snackbar.LENGTH_SHORT).show();
             }
         });
+    }
+
+    public void setTitle(View view) {
+        WastelandWaresDatabase db = WastelandWaresDatabase.getInstance(view.getContext());
+        Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
+        String title;
+
+        switch (mItemType) {
+            case "Aid":
+                title = db.getAidById(mItemId).getName();
+                break;
+            case "Armor":
+                title = db.getArmorById(mItemId).getName();
+                break;
+            case "Weapon":
+                title = db.getWeaponById(mItemId).getName();
+                break;
+            default:
+                title = db.getItemById(mItemId).getName();
+        }
+
+        toolbar.setTitle(title);
     }
 }

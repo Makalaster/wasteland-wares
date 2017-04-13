@@ -1,48 +1,55 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="24dp"
-                tools:context="com.makalaster.wastelandwares.detail.DetailFragment">
+<android.support.v4.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.makalaster.wastelandwares.detail.DetailFragment">
 
-    <TextView
-        android:id="@+id/value_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingBottom="@dimen/label_bottom_padding"
-        android:text="@string/value_label"
-        android:textSize="@dimen/label_text_size"/>
-
-    <TextView
-        android:id="@+id/value_value"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/value_label"
-        android:paddingBottom="@dimen/value_bottom_padding"
-        android:textSize="@dimen/value_text_size"/>
-
-    <TextView
-        android:id="@+id/weight_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:text="@string/weight_label"
-        android:textSize="@dimen/label_text_size"/>
-
-    <TextView
-        android:id="@+id/weight_value"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@id/weight_label"
-        android:textSize="@dimen/value_text_size"/>
-
-    <TextView
-        android:paddingTop="@dimen/description_top_padding"
-        android:id="@+id/item_description"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/weight_value"
-        android:textSize="@dimen/value_text_size"/>
+        android:layout_height="match_parent"
+        android:padding="24dp">
 
-</RelativeLayout>
+        <TextView
+            android:id="@+id/value_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/label_bottom_padding"
+            android:text="@string/value_label"
+            android:textSize="@dimen/label_text_size"/>
+
+        <TextView
+            android:id="@+id/value_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/value_label"
+            android:paddingBottom="@dimen/value_bottom_padding"
+            android:textSize="@dimen/value_text_size"/>
+
+        <TextView
+            android:id="@+id/weight_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="@string/weight_label"
+            android:textSize="@dimen/label_text_size"/>
+
+        <TextView
+            android:id="@+id/weight_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/weight_label"
+            android:textSize="@dimen/value_text_size"/>
+
+        <TextView
+            android:id="@+id/item_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/weight_value"
+            android:paddingTop="@dimen/description_top_padding"
+            android:textSize="@dimen/value_text_size"/>
+
+    </RelativeLayout>
+
+</android.support.v4.widget.NestedScrollView>
