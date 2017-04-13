@@ -18,6 +18,7 @@ public class Cart {
         mCartCompletionDate = new Date();
         mTotal = 0;
         mContents = new HashMap<>();
+
     }
 
     public static Cart getInstance() {
@@ -68,10 +69,28 @@ public class Cart {
     }
 
     public double getTotal() {
+        WastelandWaresDatabase db = WastelandWaresDatabase.getInstance(null);
         int total = 0;
 
         for (ItemId key : mContents.keySet()) {
-            total += mContents.get(key);
+            int qty = mContents.get(key);
+            switch (key.getItemType()) {
+                case "Aid":
+                    Aid aid = db.getAidById(key.getItemId());
+                    total += aid.getPrice() * qty;
+                    break;
+                case "Armor":
+                    Armor armor = db.getArmorById(key.getItemId());
+                    total += armor.getPrice() * qty;
+                    break;
+                case "Weapon":
+                    Weapon weapon = db.getWeaponById(key.getItemId());
+                    total += weapon.getPrice() * qty;
+                    break;
+                default:
+                    Item item = db.getItemById(key.getItemId());
+                    total += item.getPrice() * qty;
+            }
         }
 
         return total;

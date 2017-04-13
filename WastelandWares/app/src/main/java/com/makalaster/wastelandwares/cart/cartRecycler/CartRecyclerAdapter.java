@@ -43,7 +43,7 @@ public class CartRecyclerAdapter extends RecyclerView.Adapter<CartItemHolder> im
 
     @Override
     public void onBindViewHolder(final CartItemHolder holder, int position) {
-        WastelandWaresDatabase database = WastelandWaresDatabase.getInstance(holder.mItemQty.getContext());
+        WastelandWaresDatabase database = WastelandWaresDatabase.getInstance(null);
         final Cart cart = Cart.getInstance();
         final ItemId currentItemId = mItemList.get(position);
         int currentQty = mQtyList.get(position);
