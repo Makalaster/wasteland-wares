@@ -53,8 +53,6 @@
 
     </android.support.design.widget.CoordinatorLayout>
 
-
-
     <FrameLayout
         android:id="@+id/secondary_fragment_holder"
         android:layout_width="0dp"
