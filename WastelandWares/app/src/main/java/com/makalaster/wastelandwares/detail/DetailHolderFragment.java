@@ -54,6 +54,7 @@ public class DetailHolderFragment extends Fragment {
             mItemId = getArguments().getLong(ARG_ITEM_ID);
             mItemType = getArguments().getString(ARG_ITEM_TYPE);
         }
+        setRetainInstance(false);
     }
 
     @Override

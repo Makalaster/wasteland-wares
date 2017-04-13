@@ -30,6 +30,8 @@ public class MainActivity extends AppCompatActivity implements
     private ViewPager mPager;
     private FilterPagerAdapter mPagerAdapter;
     private boolean mTwoPane;
+    private DetailHolderFragment mDetailHolderFragment;
+    private CartHolderFragment mCartHolderFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,11 +43,7 @@ public class MainActivity extends AppCompatActivity implements
         DBAssetHelper dbSetup = new DBAssetHelper(MainActivity.this);
         dbSetup.getReadableDatabase();
 
-        if (findViewById(R.id.secondary_fragment_holder) != null) {
-            mTwoPane = true;
-        } else {
-            mTwoPane = false;
-        }
+        mTwoPane = (findViewById(R.id.secondary_fragment_holder) != null);
 
         mPager = (ViewPager) findViewById(R.id.pager);
         mPagerAdapter = new FilterPagerAdapter(getSupportFragmentManager());
@@ -59,9 +57,9 @@ public class MainActivity extends AppCompatActivity implements
             @Override
             public void onClick(View view) {
                 if (mTwoPane) {
-                    CartHolderFragment cartHolderFragment = CartHolderFragment.newInstance();
+                    mCartHolderFragment = CartHolderFragment.newInstance();
                     getSupportFragmentManager().beginTransaction().
-                            replace(R.id.secondary_fragment_holder, cartHolderFragment).commit();
+                            replace(R.id.secondary_fragment_holder, mCartHolderFragment).commit();
                 } else {
                     startActivity(new Intent(MainActivity.this, CartActivity.class));
                 }
@@ -127,9 +125,9 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     public void onItemSelected(long itemId, String type) {
         if (mTwoPane) {
-            DetailHolderFragment detailHolderFragment = DetailHolderFragment.newInstance(itemId, type);
+            mDetailHolderFragment = DetailHolderFragment.newInstance(itemId, type);
             getSupportFragmentManager().beginTransaction().
-                    replace(R.id.secondary_fragment_holder, detailHolderFragment).commit();
+                    replace(R.id.secondary_fragment_holder, mDetailHolderFragment).commit();
         } else {
             Intent intent = new Intent(MainActivity.this, DetailActivity.class);
             intent.putExtra(DetailActivity.ITEM_ID_KEY, itemId);
@@ -137,5 +135,33 @@ public class MainActivity extends AppCompatActivity implements
 
             startActivity(intent);
         }
+    }
+
+    @Override
+    protected void onPause() {
+        if (mDetailHolderFragment != null) {
+            getSupportFragmentManager().beginTransaction()
+                    .remove(mDetailHolderFragment).commit();
+        }
+        if (mCartHolderFragment != null) {
+            getSupportFragmentManager().beginTransaction()
+                    .remove(mCartHolderFragment).commit();
+        }
+
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        if (mDetailHolderFragment != null) {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.secondary_fragment_holder, mDetailHolderFragment).commit();
+        }
+        if (mCartHolderFragment != null) {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.secondary_fragment_holder, mCartHolderFragment).commit();
+        }
+
+        super.onResume();
     }
 }
