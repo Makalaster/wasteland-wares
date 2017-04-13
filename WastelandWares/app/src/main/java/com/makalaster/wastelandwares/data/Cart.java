@@ -14,11 +14,10 @@ public class Cart {
 
     private static Cart sCart;
 
-    public Cart() {
+    private Cart() {
         mCartCompletionDate = new Date();
         mTotal = 0;
         mContents = new HashMap<>();
-
     }
 
     public static Cart getInstance() {

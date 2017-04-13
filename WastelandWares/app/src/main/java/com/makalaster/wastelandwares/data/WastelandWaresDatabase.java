@@ -118,6 +118,22 @@ public class WastelandWaresDatabase extends SQLiteOpenHelper {
     public static final String SQL_DELETE_ENTRIES_ARMOR =
             "DROP TABLE IF EXISTS " + ArmorTable.TABLE_NAME;
 
+    public static abstract class CartTable implements BaseColumns {
+        public static final String TABLE_NAME = "cart";
+        public static final String COLUMN_ID = "id";
+        public static final String COLUMN_TYPE = "type";
+        public static final String COLUMN_QUANTITY = "quantity";
+    }
+
+    public static final String SQL_CREATE_TABLE_CART =
+            "CREATE TABLE " + CartTable.TABLE_NAME + " (" +
+                    CartTable.COLUMN_ID + " INTEGER PRIMARY KEY," +
+                    CartTable.COLUMN_TYPE + " TEXT PRIMARY KEY," +
+                    CartTable.COLUMN_QUANTITY + " INTEGER PRIMARY KEY)";
+
+    public static final String SQL_DELETE_ENTRIES_CART =
+            "DROP TABLE IF EXISTS " + CartTable.TABLE_NAME;
+
     private static WastelandWaresDatabase sInstance;
 
     public static WastelandWaresDatabase getInstance(Context context) {
@@ -137,6 +153,7 @@ public class WastelandWaresDatabase extends SQLiteOpenHelper {
         db.execSQL(SQL_CREATE_TABLE_ARMOR);
         db.execSQL(SQL_CREATE_TABLE_MISCELLANEOUS);
         db.execSQL(SQL_CREATE_TABLE_WEAPONS);
+        db.execSQL(SQL_CREATE_TABLE_CART);
     }
 
     @Override
@@ -145,6 +162,7 @@ public class WastelandWaresDatabase extends SQLiteOpenHelper {
         db.execSQL(SQL_DELETE_ENTRIES_ARMOR);
         db.execSQL(SQL_DELETE_ENTRIES_WEAPONS);
         db.execSQL(SQL_DELETE_ENTRIES_MISCELLANEOUS);
+        db.execSQL(SQL_DELETE_ENTRIES_CART);
 
         onCreate(db);
     }
@@ -482,5 +500,20 @@ public class WastelandWaresDatabase extends SQLiteOpenHelper {
         allItemsSearchResults.addAll(searchItemByNameOrDescription(query));
 
         return allItemsSearchResults;
+    }
+
+    public void addItemToCart(ItemId id) {
+        SQLiteDatabase db = getWritableDatabase();
+    }
+
+    public void removeItemFromCart(ItemId id) {
+        SQLiteDatabase db = getWritableDatabase();
+    }
+
+    public Cart emptyCart() {
+        Cart currentCart = Cart.getInstance();
+        Cart.getInstance().clearCart();
+
+        return currentCart;
     }
 }
