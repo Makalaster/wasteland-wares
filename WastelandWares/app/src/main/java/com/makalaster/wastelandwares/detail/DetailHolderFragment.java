@@ -4,6 +4,8 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
@@ -11,17 +13,15 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.makalaster.wastelandwares.R;
+import com.makalaster.wastelandwares.data.Cart;
+import com.makalaster.wastelandwares.data.ItemId;
 
 /**
  * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link DetailHolderFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
  * Use the {@link DetailHolderFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
 public class DetailHolderFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_ITEM_ID = "itemId";
     private static final String ARG_ITEM_TYPE = "itemType";
@@ -29,8 +29,6 @@ public class DetailHolderFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private long mItemId;
     private String mItemType;
-
-    private OnFragmentInteractionListener mListener;
 
     public DetailHolderFragment() {
         // Required empty public constructor
@@ -44,7 +42,6 @@ public class DetailHolderFragment extends Fragment {
      * @param itemType Parameter 2.
      * @return A new instance of fragment DetailHolderFragment.
      */
-    // TODO: Rename and change types and number of parameters
     public static DetailHolderFragment newInstance(long itemId, String itemType) {
         DetailHolderFragment fragment = new DetailHolderFragment();
         Bundle args = new Bundle();
@@ -75,37 +72,16 @@ public class DetailHolderFragment extends Fragment {
         DetailFragment detailFragment = DetailFragment.newInstance(mItemId, mItemType);
         getActivity().getSupportFragmentManager().beginTransaction().
                 replace(R.id.content_detail, detailFragment).commit();
-    }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
+        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Cart cart = Cart.getInstance();
+                cart.addItemToCart(new ItemId(mItemId, mItemType));
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+                Snackbar.make(v, "Item added to cart", Snackbar.LENGTH_SHORT).show();
+            }
+        });
     }
 }

@@ -19,14 +19,14 @@ import android.view.View;
 
 import com.makalaster.wastelandwares.R;
 import com.makalaster.wastelandwares.cart.CartActivity;
+import com.makalaster.wastelandwares.cart.CartFragment;
+import com.makalaster.wastelandwares.cart.CartHolderFragment;
 import com.makalaster.wastelandwares.detail.DetailActivity;
 import com.makalaster.wastelandwares.detail.DetailHolderFragment;
 import com.makalaster.wastelandwares.setup.DBAssetHelper;
 import com.makalaster.wastelandwares.shopWares.shoppingRecycler.WaresRecyclerAdapter;
 
 public class MainActivity extends AppCompatActivity implements
-        ShoppingFragment.OnFragmentInteractionListener,
-        DetailHolderFragment.OnFragmentInteractionListener,
         WaresRecyclerAdapter.OnItemSelectedListener {
 
     private ViewPager mPager;
@@ -61,7 +61,9 @@ public class MainActivity extends AppCompatActivity implements
             @Override
             public void onClick(View view) {
                 if (mTwoPane) {
-
+                    CartHolderFragment cartHolderFragment = CartHolderFragment.newInstance();
+                    getSupportFragmentManager().beginTransaction().
+                            replace(R.id.secondary_fragment_holder, cartHolderFragment).commit();
                 } else {
                     startActivity(new Intent(MainActivity.this, CartActivity.class));
                 }
@@ -125,11 +127,6 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void onFragmentInteracted(View view) {
-
-    }
-
-    @Override
     public void onItemSelected(long itemId, String type) {
         if (mTwoPane) {
             DetailHolderFragment detailHolderFragment = DetailHolderFragment.newInstance(itemId, type);
@@ -142,10 +139,5 @@ public class MainActivity extends AppCompatActivity implements
 
             startActivity(intent);
         }
-    }
-
-    @Override
-    public void onFragmentInteraction(Uri uri) {
-
     }
 }

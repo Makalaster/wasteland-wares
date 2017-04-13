@@ -1,8 +1,11 @@
 package com.makalaster.wastelandwares.cart;
 
 import android.content.DialogInterface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,9 +20,7 @@ import com.makalaster.wastelandwares.cart.cartRecycler.SwipeHelperCallback;
 import com.makalaster.wastelandwares.data.Cart;
 
 public class CartActivity extends AppCompatActivity {
-    Cart mCart;
-    CartRecyclerAdapter mAdapter;
-    RecyclerView mCartRecycler;
+    private Cart mCart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,8 +31,11 @@ public class CartActivity extends AppCompatActivity {
 
         mCart = Cart.getInstance();
 
-        mCartRecycler = (RecyclerView) findViewById(R.id.cart_recycler);
-        mCartRecycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+
+        final CartFragment cartFragment = CartFragment.newInstance();
+        transaction.add(R.id.cart_recycler_holder, cartFragment).commit();
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -45,23 +49,11 @@ public class CartActivity extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 mCart.clearCart();
-                                onResume();
+                                cartFragment.onResume();
                             }
                         })
                         .create().show();
             }
         });
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        mAdapter = new CartRecyclerAdapter(mCart.getContents());
-        mCartRecycler.setAdapter(mAdapter);
-
-        ItemTouchHelper.Callback callback = new SwipeHelperCallback(mAdapter);
-        ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
-        touchHelper.attachToRecyclerView(mCartRecycler);
     }
 }

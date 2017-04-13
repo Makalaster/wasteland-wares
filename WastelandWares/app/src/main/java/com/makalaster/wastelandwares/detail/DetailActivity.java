@@ -1,6 +1,5 @@
 package com.makalaster.wastelandwares.detail;
 
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -16,7 +15,7 @@ import com.makalaster.wastelandwares.data.Cart;
 import com.makalaster.wastelandwares.data.ItemId;
 import com.makalaster.wastelandwares.data.WastelandWaresDatabase;
 
-public class DetailActivity extends AppCompatActivity implements DetailFragment.OnFragmentInteractionListener {
+public class DetailActivity extends AppCompatActivity {
     public static final String ITEM_ID_KEY = "itemIdKey";
     public static final String ITEM_TYPE = "itemType";
 
@@ -82,10 +81,5 @@ public class DetailActivity extends AppCompatActivity implements DetailFragment.
         }
 
         getSupportActionBar().setTitle(title);
-    }
-
-    @Override
-    public void onFragmentInteraction(Uri uri) {
-
     }
 }
