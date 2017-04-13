@@ -153,6 +153,8 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     protected void onResume() {
+        super.onResume();
+
         if (mDetailHolderFragment != null) {
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.secondary_fragment_holder, mDetailHolderFragment).commit();
@@ -161,7 +163,5 @@ public class MainActivity extends AppCompatActivity implements
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.secondary_fragment_holder, mCartHolderFragment).commit();
         }
-
-        super.onResume();
     }
 }
