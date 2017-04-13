@@ -4,6 +4,7 @@ import android.app.SearchManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -22,6 +23,7 @@ import com.makalaster.wastelandwares.cart.CartActivity;
 import com.makalaster.wastelandwares.data.Item;
 import com.makalaster.wastelandwares.data.WastelandWaresDatabase;
 import com.makalaster.wastelandwares.detail.DetailActivity;
+import com.makalaster.wastelandwares.detail.DetailFragment;
 import com.makalaster.wastelandwares.setup.DBAssetHelper;
 import com.makalaster.wastelandwares.shopWares.shoppingRecycler.WaresRecyclerAdapter;
 
@@ -29,10 +31,12 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements
         ShoppingFragment.OnFragmentInteractionListener,
+        DetailFragment.OnFragmentInteractionListener,
         WaresRecyclerAdapter.OnItemSelectedListener {
 
     private ViewPager mPager;
     private FilterPagerAdapter mPagerAdapter;
+    private boolean mTwoPane;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +47,12 @@ public class MainActivity extends AppCompatActivity implements
 
         DBAssetHelper dbSetup = new DBAssetHelper(MainActivity.this);
         dbSetup.getReadableDatabase();
+
+        if (findViewById(R.id.secondary_fragment_holder) != null) {
+            mTwoPane = true;
+        } else {
+            mTwoPane = false;
+        }
 
         mPager = (ViewPager) findViewById(R.id.pager);
         mPagerAdapter = new FilterPagerAdapter(getSupportFragmentManager());
@@ -55,7 +65,11 @@ public class MainActivity extends AppCompatActivity implements
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, CartActivity.class));
+                if (mTwoPane) {
+
+                } else {
+                    startActivity(new Intent(MainActivity.this, CartActivity.class));
+                }
             }
         });
     }
@@ -122,10 +136,21 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void onItemSelected(long itemId, String type) {
-        Intent intent = new Intent(MainActivity.this, DetailActivity.class);
-        intent.putExtra(DetailActivity.ITEM_ID_KEY, itemId);
-        intent.putExtra(DetailActivity.ITEM_TYPE, type);
+        if (mTwoPane) {
+            DetailFragment detailFragment = DetailFragment.newInstance(itemId, type);
+            getSupportFragmentManager().beginTransaction().
+                    replace(R.id.secondary_fragment_holder, detailFragment).commit();
+        } else {
+            Intent intent = new Intent(MainActivity.this, DetailActivity.class);
+            intent.putExtra(DetailActivity.ITEM_ID_KEY, itemId);
+            intent.putExtra(DetailActivity.ITEM_TYPE, type);
 
-        startActivity(intent);
+            startActivity(intent);
+        }
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
     }
 }
