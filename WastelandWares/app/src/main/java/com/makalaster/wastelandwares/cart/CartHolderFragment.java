@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -74,7 +75,7 @@ public class CartHolderFragment extends Fragment {
         FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(final View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
                 builder.setTitle("Checkout Confirmation")
                         .setMessage("Are you sure you're ready to check out? Your total is " + mCart.getTotal())
@@ -84,6 +85,7 @@ public class CartHolderFragment extends Fragment {
                             public void onClick(DialogInterface dialog, int which) {
                                 mCart.clearCart();
                                 cartFragment.onResume();
+                                Snackbar.make(v, "Thank you for your business!", Snackbar.LENGTH_LONG).show();
                             }
                         })
                         .create().show();
