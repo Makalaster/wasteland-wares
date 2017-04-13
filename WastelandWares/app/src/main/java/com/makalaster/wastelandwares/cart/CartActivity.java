@@ -1,22 +1,16 @@
 package com.makalaster.wastelandwares.cart;
 
 import android.content.DialogInterface;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
 
 import com.makalaster.wastelandwares.R;
-import com.makalaster.wastelandwares.cart.cartRecycler.CartRecyclerAdapter;
-import com.makalaster.wastelandwares.cart.cartRecycler.SwipeHelperCallback;
 import com.makalaster.wastelandwares.data.Cart;
 
 public class CartActivity extends AppCompatActivity {

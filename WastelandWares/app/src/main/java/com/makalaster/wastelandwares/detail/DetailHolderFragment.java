@@ -1,13 +1,10 @@
 package com.makalaster.wastelandwares.detail;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +23,6 @@ public class DetailHolderFragment extends Fragment {
     private static final String ARG_ITEM_ID = "itemId";
     private static final String ARG_ITEM_TYPE = "itemType";
 
-    // TODO: Rename and change types of parameters
     private long mItemId;
     private String mItemType;
 

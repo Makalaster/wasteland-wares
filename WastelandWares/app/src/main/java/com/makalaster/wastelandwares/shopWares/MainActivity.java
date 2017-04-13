@@ -4,7 +4,6 @@ import android.app.SearchManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
@@ -19,7 +18,6 @@ import android.view.View;
 
 import com.makalaster.wastelandwares.R;
 import com.makalaster.wastelandwares.cart.CartActivity;
-import com.makalaster.wastelandwares.cart.CartFragment;
 import com.makalaster.wastelandwares.cart.CartHolderFragment;
 import com.makalaster.wastelandwares.detail.DetailActivity;
 import com.makalaster.wastelandwares.detail.DetailHolderFragment;

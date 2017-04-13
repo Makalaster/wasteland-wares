@@ -7,8 +7,6 @@ import android.widget.TextView;
 
 import com.makalaster.wastelandwares.R;
 
-import org.w3c.dom.Text;
-
 /**
  * Created by Makalaster on 4/12/17.
  */
