@@ -77,18 +77,24 @@ public class CartHolderFragment extends Fragment {
             @Override
             public void onClick(final View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
-                builder.setTitle("Checkout Confirmation")
-                        .setMessage("Are you sure you're ready to check out? Your total is " + mCart.getTotal())
-                        .setNegativeButton("Cancel", null)
-                        .setPositiveButton("Check out", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                mCart.clearCart();
-                                cartFragment.onResume();
-                                Snackbar.make(v, "Thank you for your business!", Snackbar.LENGTH_LONG).show();
-                            }
-                        })
-                        .create().show();
+                builder.setTitle("Checkout Confirmation");
+
+                if(mCart.getContents().isEmpty()) {
+                    builder.setMessage("Your cart is empty! Please add items before checking out.")
+                            .setPositiveButton("OK", null);
+                } else {
+                    builder.setPositiveButton("Check out", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            mCart.clearCart();
+                            cartFragment.onResume();
+                            Snackbar.make(v, "Thank you for your business!", Snackbar.LENGTH_LONG).show();
+                        }
+                    }).setMessage("Are you sure you're ready to check out? Your total is " + mCart.getTotal())
+                            .setNegativeButton("Cancel", null);
+                }
+
+                builder.create().show();
             }
         });
     }
