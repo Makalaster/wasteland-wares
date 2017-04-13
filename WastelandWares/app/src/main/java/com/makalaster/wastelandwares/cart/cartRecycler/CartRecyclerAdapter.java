@@ -22,7 +22,7 @@ import java.util.List;
  * Created by Makalaster on 4/12/17.
  */
 
-public class CartRecyclerAdapter extends RecyclerView.Adapter<CartItemHolder> {
+public class CartRecyclerAdapter extends RecyclerView.Adapter<CartItemHolder> implements OnItemRemove{
     private HashMap<ItemId, Integer> mCartMap;
     private List<ItemId> mItemList;
     private List<Integer> mQtyList;
@@ -103,5 +103,14 @@ public class CartRecyclerAdapter extends RecyclerView.Adapter<CartItemHolder> {
     @Override
     public int getItemCount() {
         return mItemList.size();
+    }
+
+    @Override
+    public void onItemRemove(int position) {
+        Cart cart = Cart.getInstance();
+        cart.removeItemFromCart(mItemList.get(position));
+
+        mItemList.remove(position);
+        notifyItemRemoved(position);
     }
 }

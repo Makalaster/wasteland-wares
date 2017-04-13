@@ -8,10 +8,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
 
 import com.makalaster.wastelandwares.R;
 import com.makalaster.wastelandwares.cart.cartRecycler.CartRecyclerAdapter;
+import com.makalaster.wastelandwares.cart.cartRecycler.SwipeHelperCallback;
 import com.makalaster.wastelandwares.data.Cart;
 
 public class CartActivity extends AppCompatActivity {
@@ -57,5 +59,9 @@ public class CartActivity extends AppCompatActivity {
 
         mAdapter = new CartRecyclerAdapter(mCart.getContents());
         mCartRecycler.setAdapter(mAdapter);
+
+        ItemTouchHelper.Callback callback = new SwipeHelperCallback(mAdapter);
+        ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
+        touchHelper.attachToRecyclerView(mCartRecycler);
     }
 }
