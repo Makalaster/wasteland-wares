@@ -136,32 +136,4 @@ public class MainActivity extends AppCompatActivity implements
             startActivity(intent);
         }
     }
-
-    @Override
-    protected void onPause() {
-        if (mDetailHolderFragment != null) {
-            getSupportFragmentManager().beginTransaction()
-                    .remove(mDetailHolderFragment).commit();
-        }
-        if (mCartHolderFragment != null) {
-            getSupportFragmentManager().beginTransaction()
-                    .remove(mCartHolderFragment).commit();
-        }
-
-        super.onPause();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        if (mDetailHolderFragment != null) {
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.secondary_fragment_holder, mDetailHolderFragment).commit();
-        }
-        if (mCartHolderFragment != null) {
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.secondary_fragment_holder, mCartHolderFragment).commit();
-        }
-    }
 }

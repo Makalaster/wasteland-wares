@@ -71,7 +71,7 @@ public class DetailHolderFragment extends Fragment {
         setTitle(view);
 
         DetailFragment detailFragment = DetailFragment.newInstance(mItemId, mItemType);
-        getActivity().getSupportFragmentManager().beginTransaction().
+        getChildFragmentManager().beginTransaction().
                 replace(R.id.content_detail, detailFragment).commit();
 
         FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);

@@ -65,7 +65,7 @@ public class CartHolderFragment extends Fragment {
 
         ((Toolbar)view.findViewById(R.id.toolbar)).setTitle("WaresCart");
 
-        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        FragmentManager fragmentManager = getChildFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
 
         final CartFragment cartFragment = CartFragment.newInstance();
