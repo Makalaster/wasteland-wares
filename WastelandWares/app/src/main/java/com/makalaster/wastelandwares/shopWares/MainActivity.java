@@ -7,31 +7,26 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.makalaster.wastelandwares.R;
 import com.makalaster.wastelandwares.cart.CartActivity;
-import com.makalaster.wastelandwares.data.Item;
-import com.makalaster.wastelandwares.data.WastelandWaresDatabase;
 import com.makalaster.wastelandwares.detail.DetailActivity;
-import com.makalaster.wastelandwares.detail.DetailFragment;
+import com.makalaster.wastelandwares.detail.DetailHolderFragment;
 import com.makalaster.wastelandwares.setup.DBAssetHelper;
 import com.makalaster.wastelandwares.shopWares.shoppingRecycler.WaresRecyclerAdapter;
 
-import java.util.List;
-
 public class MainActivity extends AppCompatActivity implements
         ShoppingFragment.OnFragmentInteractionListener,
-        DetailFragment.OnFragmentInteractionListener,
+        DetailHolderFragment.OnFragmentInteractionListener,
         WaresRecyclerAdapter.OnItemSelectedListener {
 
     private ViewPager mPager;
@@ -137,9 +132,9 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     public void onItemSelected(long itemId, String type) {
         if (mTwoPane) {
-            DetailFragment detailFragment = DetailFragment.newInstance(itemId, type);
+            DetailHolderFragment detailHolderFragment = DetailHolderFragment.newInstance(itemId, type);
             getSupportFragmentManager().beginTransaction().
-                    replace(R.id.secondary_fragment_holder, detailFragment).commit();
+                    replace(R.id.secondary_fragment_holder, detailHolderFragment).commit();
         } else {
             Intent intent = new Intent(MainActivity.this, DetailActivity.class);
             intent.putExtra(DetailActivity.ITEM_ID_KEY, itemId);
