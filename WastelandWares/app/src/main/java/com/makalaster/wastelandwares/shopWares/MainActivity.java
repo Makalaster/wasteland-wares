@@ -24,6 +24,10 @@ import com.makalaster.wastelandwares.detail.DetailHolderFragment;
 import com.makalaster.wastelandwares.setup.DBAssetHelper;
 import com.makalaster.wastelandwares.shopWares.shoppingRecycler.WaresRecyclerAdapter;
 
+/**
+ * The main activity in the application
+ */
+
 public class MainActivity extends AppCompatActivity implements
         WaresRecyclerAdapter.OnItemSelectedListener {
 
@@ -43,6 +47,7 @@ public class MainActivity extends AppCompatActivity implements
         DBAssetHelper dbSetup = new DBAssetHelper(MainActivity.this);
         dbSetup.getReadableDatabase();
 
+        //Determine whether the app is currently displaying a single pane or two panes
         mTwoPane = (findViewById(R.id.secondary_fragment_holder) != null);
 
         mPager = (ViewPager) findViewById(R.id.pager);
@@ -52,6 +57,11 @@ public class MainActivity extends AppCompatActivity implements
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.setupWithViewPager(mPager);
 
+        /*
+            Set the floating action button to open the cart
+            If in two pane mode, display the cart in a fragment
+            Otherwise, open a new activity
+         */
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,6 +83,10 @@ public class MainActivity extends AppCompatActivity implements
         handleIntent(intent);
     }
 
+    /**
+     * Handle the search intent to display search results in the currently displayed fragment
+     * @param intent the search intent
+     */
     public void handleIntent(Intent intent) {
         if(Intent.ACTION_SEARCH.equals(intent.getAction())) {
             String query = intent.getStringExtra(SearchManager.QUERY);
@@ -122,6 +136,13 @@ public class MainActivity extends AppCompatActivity implements
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Handle selecting an item from the list of items for sale
+     * If the activity is in two pane mode, the detail view is displayed in a fragment
+     * Otherwise, the detail view is displayed in a separate activity
+     * @param itemId The ID of the selected item
+     * @param type The type of the selected item
+     */
     @Override
     public void onItemSelected(long itemId, String type) {
         if (mTwoPane) {

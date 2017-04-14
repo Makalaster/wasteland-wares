@@ -15,6 +15,11 @@ import com.makalaster.wastelandwares.data.Cart;
 import com.makalaster.wastelandwares.data.ItemId;
 import com.makalaster.wastelandwares.data.WastelandWaresDatabase;
 
+/**
+ * The activity that displays details for the currently selected item
+ * The details are displayed in a fragment
+ */
+
 public class DetailActivity extends AppCompatActivity {
     public static final String ITEM_ID_KEY = "itemIdKey";
     public static final String ITEM_TYPE = "itemType";
@@ -43,6 +48,7 @@ public class DetailActivity extends AppCompatActivity {
         DetailFragment detailFragment = DetailFragment.newInstance(mSelectedItemId, mSelectedItemType);
         transaction.add(R.id.detail_fragment_container, detailFragment).commit();
 
+        //Set the floating action button to add the current item to the cart
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,6 +68,11 @@ public class DetailActivity extends AppCompatActivity {
         setActivityTitle(mSelectedItemId, mSelectedItemType);
     }
 
+    /**
+     * Set the title of the activity based on the current selected item
+     * @param id the id of the selected item
+     * @param type the class type of the selected item
+     */
     public void setActivityTitle(long id, String type) {
         WastelandWaresDatabase db = WastelandWaresDatabase.getInstance(this);
         String title;

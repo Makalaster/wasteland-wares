@@ -8,7 +8,7 @@ import android.widget.TextView;
 import com.makalaster.wastelandwares.R;
 
 /**
- * Created by Makalaster on 4/10/17.
+ * Class to hold the views for a base Item object in the recycler view
  */
 
 public class MiscHolder extends RecyclerView.ViewHolder {

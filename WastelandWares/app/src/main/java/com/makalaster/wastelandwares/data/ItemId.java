@@ -1,7 +1,10 @@
 package com.makalaster.wastelandwares.data;
 
 /**
- * Created by Makalaster on 4/12/17.
+ * A custom data type used to simplify the Cart HashMap
+ * This type consists of a long and a String, which represent an item's ID and class type
+ * The equals and hashcode methods needed to be overridden in order for the HashMap to be able to
+ * judge item equality
  */
 
 public class ItemId {

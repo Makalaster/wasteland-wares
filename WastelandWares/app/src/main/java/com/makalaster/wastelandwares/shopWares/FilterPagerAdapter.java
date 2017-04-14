@@ -6,7 +6,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.view.ViewGroup;
 
 /**
- * Created by Makalaster on 4/10/17.
+ * Adapter to handle the behavior of the ViewPager
  */
 
 public class FilterPagerAdapter extends FragmentPagerAdapter {
@@ -65,6 +65,11 @@ public class FilterPagerAdapter extends FragmentPagerAdapter {
         return createdFragment;
     }
 
+    /**
+     * Get the fragment that is currently showing in the ViewPager
+     * @param position the position of the ViewPager
+     * @return the currently showing fragment
+     */
     public ShoppingFragment getFragmentAtPosition(int position) {
         return mFragmentList[position];
     }

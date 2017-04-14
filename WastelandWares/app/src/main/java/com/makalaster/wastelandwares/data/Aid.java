@@ -1,7 +1,8 @@
 package com.makalaster.wastelandwares.data;
 
 /**
- * Created by Makalaster on 4/9/17.
+ * An Aid item that extends the Item class
+ * Aid items restore HP and may inflict radiation damage
  */
 
 public class Aid extends Item {

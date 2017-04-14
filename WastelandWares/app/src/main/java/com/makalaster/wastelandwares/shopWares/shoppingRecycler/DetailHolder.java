@@ -8,7 +8,7 @@ import android.widget.TextView;
 import com.makalaster.wastelandwares.R;
 
 /**
- * Created by Makalaster on 4/10/17.
+ * Class to hold the view for an item which is a subclass of Item in the recycler view
  */
 
 public class DetailHolder extends RecyclerView.ViewHolder {

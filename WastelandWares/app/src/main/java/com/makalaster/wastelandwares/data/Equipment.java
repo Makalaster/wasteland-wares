@@ -1,7 +1,12 @@
 package com.makalaster.wastelandwares.data;
 
 /**
- * Created by Makalaster on 4/9/17.
+ * The Equipment class is a subclass of an Item
+ * Equipment has a Condition attribute
+ * If the Condition falls to 0, the item breaks
+ * Equipment items can be damaged or repaired
+ *
+ * This functionality is not currently used
  */
 
 public class Equipment extends Item {

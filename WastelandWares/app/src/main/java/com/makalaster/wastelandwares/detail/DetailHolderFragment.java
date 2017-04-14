@@ -16,9 +16,7 @@ import com.makalaster.wastelandwares.data.ItemId;
 import com.makalaster.wastelandwares.data.WastelandWaresDatabase;
 
 /**
- * A simple {@link Fragment} subclass.
- * Use the {@link DetailHolderFragment#newInstance} factory method to
- * create an instance of this fragment.
+ * A container fragment for displaying a DetailFragment in a Master/Detail flow
  */
 public class DetailHolderFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -36,8 +34,8 @@ public class DetailHolderFragment extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param itemId Parameter 1.
-     * @param itemType Parameter 2.
+     * @param itemId the ID of the current item.
+     * @param itemType type of the current item.
      * @return A new instance of fragment DetailHolderFragment.
      */
     public static DetailHolderFragment newInstance(long itemId, String itemType) {
@@ -74,6 +72,7 @@ public class DetailHolderFragment extends Fragment {
         getChildFragmentManager().beginTransaction().
                 replace(R.id.content_detail, detailFragment).commit();
 
+        //Set the floating action button to add the current item to the cart
         FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,6 +85,7 @@ public class DetailHolderFragment extends Fragment {
         });
     }
 
+    //Set the title of the container fragment to the name of the current item
     public void setTitle(View view) {
         WastelandWaresDatabase db = WastelandWaresDatabase.getInstance(view.getContext());
         Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);

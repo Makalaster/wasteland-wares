@@ -1,7 +1,12 @@
 package com.makalaster.wastelandwares.data;
 
 /**
- * Created by Makalaster on 4/9/17.
+ * A weapon subclass of the Equipment class
+ * Weapons inflict a certain amount of damage,
+ * The have a maximum ammo capacity, a current ammo remaining,
+ * and a specific type of ammo required
+ * Firing a weapon lowers the current ammo remaining
+ * Reloading the weapon refills the current ammo remaining to the capacity
  */
 
 public class Weapon extends Equipment {
