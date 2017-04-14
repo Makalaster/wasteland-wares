@@ -24,12 +24,12 @@ The to-do list activity displays the list name at the top of the screen. A new t
 
 <p align="center">
   <img src="screenshots/singlePane_main.jpg” > 
-  <img src="screenshots/singlePane_detail.jpg” width=“250px" >
+  <img src="screenshots/singlePane_detail.jpg” width=“250" >
   <img src="screenshots/singlePane_cart.jpg” width=“250px" >
-  <img src="screenshots/singlePane_checkout_full.jpg” width=“250px" >
-  <img src="screenshots/singlePane_checkout_empty.jpg” width=“250px" >
+  <img src="screenshots/singlePane_checkout_full.jpg” width=“250" >
+  <img src="screenshots/singlePane_checkout_empty.jpg” width=“250" >
   <img src="screenshots/dualPane_main.jpg” width=“250px" >
   <img src="screenshots/dualPane_detail.jpg” width=“250px" >
-  <img src="screenshots/dualPane_cart.jpg” width=“250px" />
+  <img src="screenshots/dualPane_cart.jpg” width=“250px" >
   <img src="screenshots/dualPane_checkout.jpg” width=“250px" >
 </p>
