@@ -69,7 +69,7 @@ public class DetailHolderFragment extends Fragment {
         setTitle(view);
 
         DetailFragment detailFragment = DetailFragment.newInstance(mItemId, mItemType);
-        getActivity().getSupportFragmentManager().beginTransaction().
+        getChildFragmentManager().beginTransaction().
                 replace(R.id.content_detail, detailFragment).commit();
 
         //Set the floating action button to add the current item to the cart
