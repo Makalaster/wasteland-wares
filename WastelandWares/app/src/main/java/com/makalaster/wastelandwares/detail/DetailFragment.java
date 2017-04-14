@@ -16,9 +16,9 @@ import com.makalaster.wastelandwares.data.WastelandWaresDatabase;
 import com.makalaster.wastelandwares.data.Weapon;
 
 /**
- * A simple {@link Fragment} subclass.
- * Use the {@link DetailFragment#newInstance} factory method to
- * create an instance of this fragment.
+ * A fragment that displays details of the currently selected item
+ * This fragment displays inside of the DetailActivity layout when on a screen smaller than 900dp wide
+ * It displays inside of a DetailHolderFragment in a Master/Detail flow on wider screens
  */
 public class DetailFragment extends Fragment {
     private static final String ARG_ITEM_ID = "param1";
@@ -58,6 +58,13 @@ public class DetailFragment extends Fragment {
         }
     }
 
+    /**
+     * Inflate the appropriate view based on the type of item selected
+     * @param inflater a LayoutInflater
+     * @param container the root viewgroup
+     * @param savedInstanceState a bundle
+     * @return an inflated view
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -81,6 +88,11 @@ public class DetailFragment extends Fragment {
         populateView(view);
     }
 
+
+    /**
+     * Populates the detail view based on the type of item currently selected
+     * @param view the inflated view
+     */
     public void populateView(View view) {
         switch (mItemType) {
             case "Aid":
