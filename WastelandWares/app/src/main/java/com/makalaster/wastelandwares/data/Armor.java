@@ -1,7 +1,8 @@
 package com.makalaster.wastelandwares.data;
 
 /**
- * Created by Makalaster on 4/9/17.
+ * An armor item that extends the Equipment class
+ * Armor items offer increased defense
  */
 
 public class Armor extends Equipment {

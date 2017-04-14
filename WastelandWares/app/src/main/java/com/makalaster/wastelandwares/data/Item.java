@@ -1,7 +1,8 @@
 package com.makalaster.wastelandwares.data;
 
 /**
- * Created by Makalaster on 4/9/17.
+ * The base class of an item
+ * All items have a name, description, price, rating, id, and weight
  */
 
 public class Item {

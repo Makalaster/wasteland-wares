@@ -4,19 +4,17 @@ import java.util.Date;
 import java.util.HashMap;
 
 /**
- * Created by Makalaster on 4/9/17.
+ * A singleton class that stores a list of items and their quantities
  */
 
 public class Cart {
     private HashMap<ItemId, Integer> mContents;
     private Date mCartCompletionDate;
-    private int mTotal;
 
     private static Cart sCart;
 
     private Cart() {
         mCartCompletionDate = new Date();
-        mTotal = 0;
         mContents = new HashMap<>();
     }
 
@@ -27,46 +25,89 @@ public class Cart {
         return sCart;
     }
 
+    /**
+     * Get all of the contents of the cart in a HashMap
+     * @return mContents, the contents of the cart
+     */
     public HashMap<ItemId, Integer> getContents() {
         return mContents;
     }
 
+    /**
+     * Clear out the cart
+     */
     public void clearCart() {
         mContents.clear();
     }
 
+    /**
+     * Return all of the keys in the cart as a string
+     * Will be used to store previous orders
+     * @return a string of all of the keys in the cart map
+     */
     public String getAllItems() {
         return mContents.keySet().toString();
     }
 
+    /**
+     * Return all of the values in the cart as a string
+     * Will be used to store previous orders
+     * @return a string of all of the values in the cart map
+     */
     public String getAllQtys() {
         return mContents.entrySet().toString();
     }
 
+    /**
+     * Get the date the cart was completed
+     * Will be used to store previous orders
+     * @return the date the cart was completed
+     */
     public Date getCartCompletionDate() {
         return mCartCompletionDate;
     }
 
+    /**
+     * Increment the quantity of the provided item
+     * @param id the id of the item to be incremented
+     */
     public void incrementItemCount(ItemId id) {
         mContents.put(id, mContents.get(id) + 1);
     }
 
+    /**
+     * Decrement the quantity of the provided item
+     * @param id the id of the item to be decremented
+     */
     public void decrementItemCount(ItemId id) {
         mContents.put(id, mContents.get(id) - 1);
     }
 
+    /**
+     * Add a new item to the cart
+     * Increments the
+     * @param id the id of the item to be added or incremented
+     */
     public void addItemToCart(ItemId id) {
         if (mContents.containsKey(id)) {
-            mContents.put(id, mContents.get(id) + 1);
+            incrementItemCount(id);
         } else {
             mContents.put(id, 1);
         }
     }
 
+    /**
+     * Remove an item from the cart
+     * @param id the id of the item to be removed
+     */
     public void removeItemFromCart(ItemId id) {
         mContents.remove(id);
     }
 
+    /**
+     * Return the sum of all of the items in the cart
+     * @return the sum of all of the items in the cart
+     */
     public double getTotal() {
         WastelandWaresDatabase db = WastelandWaresDatabase.getInstance(null);
         int total = 0;

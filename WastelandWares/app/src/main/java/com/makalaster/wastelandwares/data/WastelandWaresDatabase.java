@@ -4,14 +4,13 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.database.sqlite.SQLiteQueryBuilder;
 import android.provider.BaseColumns;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Makalaster on 4/9/17.
+ * This class is a singleton that also manages SQLite database storage and functions
  */
 
 public class WastelandWaresDatabase extends SQLiteOpenHelper {
@@ -167,6 +166,10 @@ public class WastelandWaresDatabase extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    /**
+     * Method to get all Aid items
+     * @return a list of all aid items in the database
+     */
     public List<Item> getAllAid() {
         List<Item> allAid = new ArrayList<>();
 
@@ -192,6 +195,10 @@ public class WastelandWaresDatabase extends SQLiteOpenHelper {
         return allAid;
     }
 
+    /**
+     * Method to get all Armor items
+     * @return a list of all armor items in the database
+     */
     public List<Item> getAllArmor() {
         List<Item> allArmor = new ArrayList<>();
 
@@ -216,6 +223,10 @@ public class WastelandWaresDatabase extends SQLiteOpenHelper {
         return allArmor;
     }
 
+    /**
+     * Method to get all Weapon items
+     * @return a list of all weapon items in the database
+     */
     public List<Item> getAllWeapons() {
         List<Item> allWeapons = new ArrayList<>();
 
@@ -242,6 +253,10 @@ public class WastelandWaresDatabase extends SQLiteOpenHelper {
         return allWeapons;
     }
 
+    /**
+     * Method to get all Item items
+     * @return a list of all items in the database
+     */
     public List<Item> getAllMisc() {
         List<Item> allItems = new ArrayList<>();
 
@@ -266,6 +281,11 @@ public class WastelandWaresDatabase extends SQLiteOpenHelper {
         return allItems;
     }
 
+    /**
+     * Method to get every item in the database
+     * Calls each of the specific item type getter methods
+     * @return a list of the entire contents of the database
+     */
     public List<Item> getEverythingForSale() {
         List<Item> everythingForSale = new ArrayList<>();
 
@@ -277,6 +297,11 @@ public class WastelandWaresDatabase extends SQLiteOpenHelper {
         return everythingForSale;
     }
 
+    /**
+     * Find a specific Item based on an ID
+     * @param itemId the ID of the Item to find
+     * @return the Item with the specified ID
+     */
     public Item getItemById(long itemId) {
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.query(MiscTable.TABLE_NAME, null,
@@ -300,6 +325,11 @@ public class WastelandWaresDatabase extends SQLiteOpenHelper {
         return item;
     }
 
+    /**
+     * Find a specific Armor based on an ID
+     * @param itemId the ID of the Armor to find
+     * @return the Armor with the specified ID
+     */
     public Armor getArmorById(long itemId) {
         SQLiteDatabase db = getReadableDatabase();
         Cursor armorCursor = db.query(ArmorTable.TABLE_NAME, null,
@@ -324,6 +354,11 @@ public class WastelandWaresDatabase extends SQLiteOpenHelper {
         return armor;
     }
 
+    /**
+     * Find a specific Weapon based on an ID
+     * @param itemId the ID of the Weapon to find
+     * @return the Weapon with the specified ID
+     */
     public Weapon getWeaponById(long itemId) {
         SQLiteDatabase db = getReadableDatabase();
         Cursor weaponCursor = db.query(WeaponTable.TABLE_NAME, null,
@@ -350,6 +385,11 @@ public class WastelandWaresDatabase extends SQLiteOpenHelper {
         return weapon;
     }
 
+    /**
+     * Find a specific Aid based on an ID
+     * @param itemId the ID of the Aid to find
+     * @return the Aid with the specified ID
+     */
     public Aid getAidById(long itemId) {
         SQLiteDatabase db = getReadableDatabase();
         Cursor aidCursor = db.query(AidTable.TABLE_NAME, null,
@@ -376,6 +416,11 @@ public class WastelandWaresDatabase extends SQLiteOpenHelper {
         return aid;
     }
 
+    /**
+     * Search for an Aid based on name or description
+     * @param query the string by which to search the database
+     * @return any Aid items matching the query string
+     */
     public List<Item> searchAidByNameOrDescription(String query) {
         SQLiteDatabase db = getReadableDatabase();
         List<Item> aidList = new ArrayList<>();
@@ -406,6 +451,11 @@ public class WastelandWaresDatabase extends SQLiteOpenHelper {
         return aidList;
     }
 
+    /**
+     * Search for an Armor based on name or description
+     * @param query the string by which to search the database
+     * @return any Armor items matching the query string
+     */
     public List<Item> searchArmorByNameOrDescription(String query) {
         SQLiteDatabase db = getReadableDatabase();
         List<Item> armorList = new ArrayList<>();
@@ -434,6 +484,11 @@ public class WastelandWaresDatabase extends SQLiteOpenHelper {
         return armorList;
     }
 
+    /**
+     * Search for a Weapon based on name or description
+     * @param query the string by which to search the database
+     * @return any Weapon items matching the query string
+     */
     public List<Item> searchWeaponByNameOrDescription(String query) {
         SQLiteDatabase db = getReadableDatabase();
         List<Item> weaponList = new ArrayList<>();
@@ -464,6 +519,11 @@ public class WastelandWaresDatabase extends SQLiteOpenHelper {
         return weaponList;
     }
 
+    /**
+     * Search for an Item based on name or description
+     * @param query the string by which to search the database
+     * @return any Items matching the query string
+     */
     public List<Item> searchItemByNameOrDescription(String query) {
         SQLiteDatabase db = getReadableDatabase();
         List<Item> itemList = new ArrayList<>();
@@ -491,6 +551,12 @@ public class WastelandWaresDatabase extends SQLiteOpenHelper {
         return itemList;
     }
 
+    /**
+     * Search for anything in the database based on name or description
+     * This method calls the type-specific search methods
+     * @param query the string by which to search the database
+     * @return anything in the database matching the query string
+     */
     public List<Item> searchAllByNameOrDescription(String query) {
         List<Item> allItemsSearchResults = new ArrayList<>();
 
