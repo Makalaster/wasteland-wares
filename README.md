@@ -29,13 +29,13 @@ If this app is run on a screen that is wider than 900dp, it is displayed in a tw
 #### Screenshots
 
 <p align="center">
-  <img src="screenshots/singlePane_main.jpg” width=“250”/> 
-  <img src="screenshots/singlePane_detail.jpg” width=“250“/>
-  <img src="screenshots/singlePane_cart.jpg” width=“250”/>
-  <img src="screenshots/singlePane_checkout_full.jpg” width=“250”/>
-  <img src="screenshots/singlePane_checkout_empty.jpg” width=“250”/>
-  <img src="screenshots/dualPane_main.jpg” width=“250”/>
-  <img src="screenshots/dualPane_detail.jpg” width=“250”/>
-  <img src="screenshots/dualPane_cart.jpg” width=“250”/>
-  <img src="screenshots/dualPane_checkout.jpg” width=“250”/>
+  <img src="screenshots/singlePane_main.jpg" width="250"/> 
+  <img src="screenshots/singlePane_detail.jpg" width="250"/>
+  <img src="screenshots/singlePane_cart.jpg" width="250"/>
+  <img src="screenshots/singlePane_checkout_full.jpg" width="250"/>
+  <img src="screenshots/singlePane_checkout_empty.jpg" width="250"/>
+  <img src="screenshots/dualPane_main.jpg" width="250"/>
+  <img src="screenshots/dualPane_detail.jpg" width="250"/>
+  <img src="screenshots/dualPane_cart.jpg" width="250"/>
+  <img src="screenshots/dualPane_checkout.jpg" width="250"/>
 </p>
