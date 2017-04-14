@@ -16,14 +16,13 @@ import com.makalaster.wastelandwares.cart.cartRecycler.SwipeHelperCallback;
 import com.makalaster.wastelandwares.data.Cart;
 
 /**
- * A simple {@link Fragment} subclass.
- * Use the {@link CartFragment#newInstance} factory method to
- * create an instance of this fragment.
+ * A fragment used to display the contents of the cart in a RecyclerView
+ * This fragment is displayed within the CartActivity on screens smaller than 900dp
+ * On wider screens, this fragment is nested within a CartHolderFragment
  */
 public class CartFragment extends Fragment {
     private Cart mCart;
     private RecyclerView mCartRecycler;
-    private CartRecyclerAdapter mAdapter;
 
     public CartFragment() {
         // Required empty public constructor
@@ -45,9 +44,6 @@ public class CartFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-
-        }
     }
 
     @Override
@@ -69,10 +65,10 @@ public class CartFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
-        mAdapter = new CartRecyclerAdapter(mCart.getContents());
-        mCartRecycler.setAdapter(mAdapter);
+        CartRecyclerAdapter adapter = new CartRecyclerAdapter(mCart.getContents());
+        mCartRecycler.setAdapter(adapter);
 
-        ItemTouchHelper.Callback callback = new SwipeHelperCallback(mAdapter);
+        ItemTouchHelper.Callback callback = new SwipeHelperCallback(adapter);
         ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
         touchHelper.attachToRecyclerView(mCartRecycler);
     }

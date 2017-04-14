@@ -4,7 +4,8 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 
 /**
- * Created by Makalaster on 4/12/17.
+ * Callback class to handle what happens when an item is swiped
+ * Moving an item by dragging up and down is disabled
  */
 
 public class SwipeHelperCallback extends ItemTouchHelper.Callback {

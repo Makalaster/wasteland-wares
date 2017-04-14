@@ -19,16 +19,14 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- * Created by Makalaster on 4/12/17.
+ * Adapter for the list of items to be displayed in the shopping cart
  */
 
 public class CartRecyclerAdapter extends RecyclerView.Adapter<CartItemHolder> implements OnItemRemove{
-    private HashMap<ItemId, Integer> mCartMap;
     private List<ItemId> mItemList;
     private List<Integer> mQtyList;
 
     public CartRecyclerAdapter(HashMap<ItemId, Integer> cartMap) {
-        mCartMap = cartMap;
         mItemList = new ArrayList<>();
         mItemList.addAll(cartMap.keySet());
         mQtyList = new ArrayList<>();
@@ -71,6 +69,11 @@ public class CartRecyclerAdapter extends RecyclerView.Adapter<CartItemHolder> im
                 holder.mItemName.setText(currentItem.getName());
         }
 
+        /*
+            Handles the decrement button on a cart item
+            If there is only one of an item in the cart,
+            decrementing this item removes it from the cart
+        */
         holder.mDecrementButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -88,6 +91,9 @@ public class CartRecyclerAdapter extends RecyclerView.Adapter<CartItemHolder> im
             }
         });
 
+        /*
+            Handles the increment button on a cart item
+         */
         holder.mIncrementButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -105,6 +111,11 @@ public class CartRecyclerAdapter extends RecyclerView.Adapter<CartItemHolder> im
         return mItemList.size();
     }
 
+
+    /*
+        Implements the OnItemRemove interface
+        Swiping left or right on a cart item removes it from the cart
+     */
     @Override
     public void onItemRemove(int position) {
         Cart cart = Cart.getInstance();

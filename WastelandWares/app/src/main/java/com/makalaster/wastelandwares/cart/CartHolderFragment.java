@@ -18,9 +18,9 @@ import com.makalaster.wastelandwares.R;
 import com.makalaster.wastelandwares.data.Cart;
 
 /**
- * A simple {@link Fragment} subclass.
- * Use the {@link CartHolderFragment#newInstance} factory method to
- * create an instance of this fragment.
+ * A fragment used in Master/Detail flow do set up the toolbar and floating action button
+ * This fragment is not used on screens smaller than 900dp wide
+ * This fragment nests the CartFragment to display data
  */
 public class CartHolderFragment extends Fragment {
     private Cart mCart;
@@ -46,9 +46,6 @@ public class CartHolderFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-
-        }
 
         mCart = Cart.getInstance();
     }
@@ -72,6 +69,9 @@ public class CartHolderFragment extends Fragment {
         final CartFragment cartFragment = CartFragment.newInstance();
         transaction.add(R.id.cart_recycler_holder, cartFragment).commit();
 
+        /*
+            Set up the floating action button to mirror the functionality in the CartActivity class
+         */
         FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -1,7 +1,8 @@
 package com.makalaster.wastelandwares.cart.cartRecycler;
 
 /**
- * Created by Makalaster on 4/12/17.
+ * Interface to handle removing an item from the cart
+ * Implemented in the CartRecyclerAdapter
  */
 
 public interface OnItemRemove {

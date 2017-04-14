@@ -14,6 +14,11 @@ import android.view.View;
 import com.makalaster.wastelandwares.R;
 import com.makalaster.wastelandwares.data.Cart;
 
+/**
+ * Activity to display the contents of the shopping cart
+ * This activity is only launched on screens narrower than 900dp
+ * The content of this activity, a RecyclerView, is dispayed in a fragment
+ */
 public class CartActivity extends AppCompatActivity {
     private Cart mCart;
 
@@ -32,6 +37,11 @@ public class CartActivity extends AppCompatActivity {
         final CartFragment cartFragment = CartFragment.newInstance();
         transaction.add(R.id.cart_recycler_holder, cartFragment).commit();
 
+        /*
+            Set the floating action button to display a dialog
+            If the cart is empty, the user is informed that they must first add items to the cart
+            If the cart has items in it, a confirmation is displayed with the current total price
+         */
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override

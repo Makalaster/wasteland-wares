@@ -8,7 +8,7 @@ import android.widget.TextView;
 import com.makalaster.wastelandwares.R;
 
 /**
- * Created by Makalaster on 4/12/17.
+ * Class to hold cart items for the CartRecyclerAdapter
  */
 
 public class CartItemHolder extends RecyclerView.ViewHolder {
