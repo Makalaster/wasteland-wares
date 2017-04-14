@@ -14,7 +14,7 @@ import com.makalaster.wastelandwares.data.Weapon;
 import java.util.List;
 
 /**
- * Created by Makalaster on 4/10/17.
+ * Adapter for the recycler view that displays lists of items for sale
  */
 
 public class WaresRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -45,7 +45,7 @@ public class WaresRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         switch (holder.getItemViewType()) {
             case AID:
-                final Aid currentAid = (Aid) mItemList.get(position);
+                Aid currentAid = (Aid) mItemList.get(position);
                 DetailHolder aidHolder = (DetailHolder) holder;
 
                 aidHolder.mItemName.setText(currentAid.getName());
@@ -108,6 +108,11 @@ public class WaresRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
         }
     }
 
+    /**
+     * Set the listener for the ViewHolder of type DetailHolder
+     * @param detailHolder the slightly more complex ViewHolder
+     * @param item the item clicked
+     */
     public void setOnItemSelectedListener(DetailHolder detailHolder, Item item) {
         final long id = item.getId();
         final String type = item.getClass().getSimpleName();
@@ -120,6 +125,11 @@ public class WaresRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
         });
     }
 
+    /**
+     * Set the listener for the ViewHolder of type MiscHolder
+     * @param miscHolder the slightly simpler ViewHolder
+     * @param item the item clicked
+     */
     public void setOnItemSelectedListener(MiscHolder miscHolder, Item item) {
         final long id = item.getId();
         final String type = item.getClass().getSimpleName();
@@ -132,11 +142,18 @@ public class WaresRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
         });
     }
 
+    /**
+     * Replace the contents of the recycler view and notify that the data has changed
+     * @param newList the new contents of the recycler
+     */
     public void replaceData(List<Item> newList) {
         mItemList = newList;
         notifyDataSetChanged();
     }
 
+    /**
+     * Interface to handle selecting an item in the recycler view
+     */
     public interface OnItemSelectedListener {
         void onItemSelected(long itemId, String type);
     }

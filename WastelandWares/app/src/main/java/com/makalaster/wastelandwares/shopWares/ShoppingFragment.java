@@ -18,10 +18,7 @@ import com.makalaster.wastelandwares.shopWares.shoppingRecycler.WaresRecyclerAda
 import java.util.List;
 
 /**
- * A simple {@link Fragment} subclass.
- *
- * Use the {@link ShoppingFragment#newInstance} factory method to
- * create an instance of this fragment.
+ * A fragment that displays a grid list of items for sale
  */
 public class ShoppingFragment extends Fragment implements WaresRecyclerAdapter.OnItemSelectedListener {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -40,7 +37,7 @@ public class ShoppingFragment extends Fragment implements WaresRecyclerAdapter.O
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param selectedTab Parameter 1.
+     * @param selectedTab The currently selected tab in the ViewPager.
      * @return A new instance of fragment ShoppingFragment.
      */
     public static ShoppingFragment newInstance(int selectedTab) {
@@ -67,6 +64,11 @@ public class ShoppingFragment extends Fragment implements WaresRecyclerAdapter.O
         return inflater.inflate(R.layout.fragment_shopping, container, false);
     }
 
+    /**
+     * Filters the contents of the item list based on the current page in the ViewPager
+     * @param view the current view
+     * @param savedInstanceState the saved instance state
+     */
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -103,6 +105,10 @@ public class ShoppingFragment extends Fragment implements WaresRecyclerAdapter.O
         recyclerView.setAdapter(mAdapter);
     }
 
+    /**
+     * Displays search results relevant to the current category of items
+     * @param query the search query
+     */
     public void search(String query) {
         WastelandWaresDatabase db = WastelandWaresDatabase.getInstance(getContext());
 
@@ -130,6 +136,9 @@ public class ShoppingFragment extends Fragment implements WaresRecyclerAdapter.O
         }
     }
 
+    /**
+     * On closing the search view, the default items are displayed on each page
+     */
     public void returnFromSearch() {
         WastelandWaresDatabase wastelandWaresDatabase = WastelandWaresDatabase.getInstance(getContext());
 
