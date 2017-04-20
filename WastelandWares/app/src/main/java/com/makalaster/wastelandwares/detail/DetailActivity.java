@@ -5,6 +5,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -14,6 +15,7 @@ import com.makalaster.wastelandwares.R;
 import com.makalaster.wastelandwares.data.Cart;
 import com.makalaster.wastelandwares.data.ItemId;
 import com.makalaster.wastelandwares.data.WastelandWaresDatabase;
+import com.makalaster.wastelandwares.threads.GetByIDThread;
 
 /**
  * The activity that displays details for the currently selected item
@@ -65,32 +67,24 @@ public class DetailActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        setActivityTitle(mSelectedItemId, mSelectedItemType);
+        setActivityTitle(new ItemId(mSelectedItemId, mSelectedItemType));
     }
 
     /**
      * Set the title of the activity based on the current selected item
-     * @param id the id of the selected item
-     * @param type the class type of the selected item
+     * @param itemId the id of the selected item
      */
-    public void setActivityTitle(long id, String type) {
-        WastelandWaresDatabase db = WastelandWaresDatabase.getInstance(this);
-        String title;
+    public void setActivityTitle(ItemId itemId) {
+        ActionBar actionBar;
 
-        switch (type) {
-            case "Aid":
-                title = db.getAidById(id).getName();
-                break;
-            case "Armor":
-                title = db.getArmorById(id).getName();
-                break;
-            case "Weapon":
-                title = db.getWeaponById(id).getName();
-                break;
-            default:
-                title = db.getItemById(id).getName();
+        if (getSupportActionBar() != null) {
+            actionBar = getSupportActionBar();
+        } else {
+            actionBar = null;
         }
 
-        getSupportActionBar().setTitle(title);
+        GetByIDThread thread = new GetByIDThread(actionBar);
+        thread.execute(itemId);
+
     }
 }

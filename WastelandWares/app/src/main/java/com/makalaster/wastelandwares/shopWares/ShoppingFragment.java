@@ -1,6 +1,7 @@
 package com.makalaster.wastelandwares.shopWares;
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -14,6 +15,11 @@ import com.makalaster.wastelandwares.R;
 import com.makalaster.wastelandwares.data.Item;
 import com.makalaster.wastelandwares.data.WastelandWaresDatabase;
 import com.makalaster.wastelandwares.shopWares.shoppingRecycler.WaresRecyclerAdapter;
+import com.makalaster.wastelandwares.threads.GetAllAidThread;
+import com.makalaster.wastelandwares.threads.GetAllArmorThread;
+import com.makalaster.wastelandwares.threads.GetAllItemsThread;
+import com.makalaster.wastelandwares.threads.GetAllMiscThread;
+import com.makalaster.wastelandwares.threads.GetAllWeaponsThread;
 
 import java.util.List;
 
@@ -73,36 +79,34 @@ public class ShoppingFragment extends Fragment implements WaresRecyclerAdapter.O
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        WastelandWaresDatabase wastelandWaresDatabase = WastelandWaresDatabase.getInstance(view.getContext());
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recycler);
         recyclerView.setLayoutManager(new GridLayoutManager(view.getContext(), 2));
 
         switch (mSelectedTab) {
             case 0:
-                List<Item> list = wastelandWaresDatabase.getEverythingForSale();
-                mAdapter = new WaresRecyclerAdapter(list, mListener);
+                GetAllItemsThread getAllItemsThread = new GetAllItemsThread(recyclerView, mAdapter, mListener);
+                getAllItemsThread.execute();
                 break;
             case 1:
-                List<Item> armorList = wastelandWaresDatabase.getAllArmor();
-                mAdapter = new WaresRecyclerAdapter(armorList, mListener);
+                GetAllArmorThread getAllArmorThread = new GetAllArmorThread(recyclerView, mAdapter, mListener);
+                getAllArmorThread.execute();
                 break;
             case 2:
-                List<Item> weaponList = wastelandWaresDatabase.getAllWeapons();
-                mAdapter = new WaresRecyclerAdapter(weaponList, mListener);
+                GetAllWeaponsThread getAllWeaponsThread = new GetAllWeaponsThread(recyclerView, mAdapter, mListener);
+                getAllWeaponsThread.execute();
                 break;
             case 3:
-                List<Item> aidList = wastelandWaresDatabase.getAllAid();
-                mAdapter = new WaresRecyclerAdapter(aidList, mListener);
+                GetAllAidThread getAllAidThread = new GetAllAidThread(recyclerView, mAdapter, mListener);
+                getAllAidThread.execute();
                 break;
             case 4:
-                List<Item> miscList = wastelandWaresDatabase.getAllMisc();
-                mAdapter = new WaresRecyclerAdapter(miscList, mListener);
+                GetAllMiscThread getAllMiscThread = new GetAllMiscThread(recyclerView, mAdapter, mListener);
+                getAllMiscThread.execute();
                 break;
             default:
                 mAdapter = new WaresRecyclerAdapter(null, null);
+                recyclerView.setAdapter(mAdapter);
         }
-
-        recyclerView.setAdapter(mAdapter);
     }
 
     /**
