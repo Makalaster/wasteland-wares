@@ -1,5 +1,7 @@
 package com.makalaster.wastelandwares.threads;
 
+import android.content.ContentValues;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView;
 
@@ -17,16 +19,21 @@ public class GetAllItemsThread extends AsyncTask<Void, Void, List<Item>> {
     private RecyclerView mRecyclerView;
     private WaresRecyclerAdapter mWaresRecyclerAdapter;
     private WaresRecyclerAdapter.OnItemSelectedListener mListener;
+    private Context mContext;
 
-    public GetAllItemsThread(RecyclerView recyclerView, WaresRecyclerAdapter waresRecyclerAdapter, WaresRecyclerAdapter.OnItemSelectedListener listener) {
+    public GetAllItemsThread(RecyclerView recyclerView,
+                             WaresRecyclerAdapter waresRecyclerAdapter,
+                             WaresRecyclerAdapter.OnItemSelectedListener listener,
+                             Context context) {
         mRecyclerView = recyclerView;
         mWaresRecyclerAdapter = waresRecyclerAdapter;
         mListener = listener;
+        mContext = context;
     }
 
     @Override
     protected List<Item> doInBackground(Void... params) {
-        WastelandWaresDatabase db = WastelandWaresDatabase.getInstance(null);
+        WastelandWaresDatabase db = WastelandWaresDatabase.getInstance(mContext);
 
         return db.getEverythingForSale();
     }

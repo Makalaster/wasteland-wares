@@ -84,7 +84,7 @@ public class ShoppingFragment extends Fragment implements WaresRecyclerAdapter.O
 
         switch (mSelectedTab) {
             case 0:
-                GetAllItemsThread getAllItemsThread = new GetAllItemsThread(recyclerView, mAdapter, mListener);
+                GetAllItemsThread getAllItemsThread = new GetAllItemsThread(recyclerView, mAdapter, mListener, getContext());
                 getAllItemsThread.execute();
                 break;
             case 1:
